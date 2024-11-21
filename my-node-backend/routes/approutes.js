@@ -27,5 +27,7 @@ router.get('/api/getfavorites', getFavorites);     // Fetch favorites
 router.post('/api/cart', toggleCart);              // Add or update product in the cart
 router.post('/api/cart/remove', removeFromCart);   // Remove product from cart
 router.get('/api/cart', getCart);                  // Get the cart of a user
-
+router.get('/', (req, res) => {
+    res.send('Hey! Your server is up and running 🚀');
+});
 module.exports = router;
