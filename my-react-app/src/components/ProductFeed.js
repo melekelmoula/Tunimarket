@@ -29,35 +29,34 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
 
   return (
     <div>
-      <Helmet>
-        <meta name="description" content="Discover the best deals for buying and selling on TuniMarket, the online marketplace of Tunisia." />
+
+    <Helmet>
+    <meta name="description" content="Discover the best deals for buying and selling on TuniMarket, the online marketplace of Tunisia." />
         <meta name="keywords" content="TuniMarket, Tunisia, online shopping, buy and sell Tunisia, market Tunisia" />
         <meta property="og:title" content="TuniMarket - Buy and Sell in Tunisia" />
         <meta property="og:description" content="The best site to buy and sell in Tunisia. Explore exclusive products on TuniMarket." />
-        <link rel="preload" href={filteredProducts.map((product) => product.imageUrl)} as="image" />
       </Helmet>
 
-      <div className="row mt-4">
-        {visibleProducts.map((product) => (
-          <div key={product.id} className="col-md-4 mb-4" onClick={() => handleProductClick(product)}>
-            <div className="card h-100 shadow-sm">
-              <img
-                src={product.imageUrl}
-                alt={product.name}
-                className="card-img-top"
-                style={{ height: '200px', objectFit: 'cover' }}
-                loading="lazy"  // Add lazy loading to images
-              />
-              <div className="card-body text-center">
-                <h5 className="card-title">{product.name}</h5>
-              </div>
+    <div className="row mt-4">
+      {visibleProducts.map((product) => (
+        <div key={product.id} className="col-md-4 mb-4" onClick={() => handleProductClick(product)}>
+          <div className="card h-100 shadow-sm">
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="card-img-top"
+              style={{ height: '200px', objectFit: 'cover' }}
+            />
+            <div className="card-body text-center">
+              <h5 className="card-title">{product.name}</h5>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
+    </div>
+
   );
 }
 
 export default ProductFeed;
-
