@@ -170,8 +170,8 @@ function App() {
       await axios.post('https://tuni-market.vercel.app/api/orders', orderDetails);
       setShowCart(false);
       setCartItems([]); // This will reset the cart to an empty array
-      //window.location.reload();
-      navigate(`/`); 
+       navigate(`/`); 
+       window.location.reload(); 
     } catch (error) {
       alert("Error submitting order: " + error.message);
     }
