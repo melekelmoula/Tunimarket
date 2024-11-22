@@ -1,0 +1,48 @@
+// my-react-app/src/translations.js
+const translations = {
+  en: {
+    searchPlaceholder: "Search products",
+    home: "Home",
+    cart: "Cart",
+    favorites: "Favorites",
+    removeFromCart: "Remove from Cart",
+    addToCart: "Add to Cart",
+    addToFavorites: "Add to Favorites",
+    removeFromFavorites: "Remove from Favorites",
+    price: "Price",
+    category: "Category",
+    location: "Location",
+    stock: "Stock",
+    addedBy: "Added by",
+    productId: "Product ID",
+    welcome: "Welcome",
+    Search:"Search",
+ Autoparts: "Autoparts",
+    Clothes: "Clothes",
+    Technology: "Technology",
+   
+  },
+  fr: {
+    searchPlaceholder: "Rechercher des produits",
+    home: "Accueil",
+    cart: "Panier",
+    favorites: "Favoris",
+    removeFromCart: "Retirer du panier",
+    addToCart: "Ajouter au panier",
+    addToFavorites: "Ajouter aux favoris",
+    removeFromFavorites: "Retirer des favoris",
+    price: "Prix",
+    category: "Catégorie",
+    location: "Emplacement",
+    stock: "Quantité",
+    addedBy: "Ajouté par",
+    productId: "ID du produit",
+    welcome: "Bienvenue",
+    Search:"Recherche",
+    Autoparts: "Pièces automobile",
+    Clothes: "Vêtements",
+    Technology: "Technologie",
+  },
+};
+
+export default translations;
