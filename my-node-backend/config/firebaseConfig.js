@@ -1,4 +1,5 @@
 // my-node-backend/config/firebaseConfig.js
+require('dotenv').config();
 const admin = require('firebase-admin');
 //const serviceAccount = require('/etc/secrets/firebaseAdmin.json'); // Download this JSON from Firebase Console
 const serviceAccount = process.env.FIREBASE_CONFIG;
