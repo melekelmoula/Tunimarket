@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 // Dynamic CORS setup
 const allowedOrigins = [
   'http://localhost:3000', // Local development
-  'https://peaceful-torrone-3e65dc.netlify.app' // Production
+  'https://tunimarket-8v8x.vercel.app/' // Production
 ];
 
 app.use(cors({
