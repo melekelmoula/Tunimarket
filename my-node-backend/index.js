@@ -1,31 +1,35 @@
 const express = require('express');
 const cors = require('cors');
-const serverless = require('serverless-http');
-const routes = require('./routes/approutes');  // Make sure this path is correct
+const routes = require('./routes/approutes');  // Import the routes file
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
+// Dynamic CORS setup
 const allowedOrigins = [
-  'http://localhost:3000',
-  'https://peaceful-torrone-3e65dc.netlify.app',
+  'http://localhost:3000', // Local development
+  'https://peaceful-torrone-3e65dc.netlify.app' // Production
 ];
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-    optionsSuccessStatus: 200,
-  })
-);
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // If using cookies or auth headers
+  optionsSuccessStatus: 200
+}));
 
-app.use(express.json());
-app.use(routes);  // Use the routes you defined in approutes.js
+// Middleware
+app.use(express.json()); // Middleware to parse JSON request bodies
 
-// Export as a serverless function for Vercel
-module.exports = serverless(app);
+// Use the routes defined in approutes.js
+app.use(routes);
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server is running on ${process.env.BASE_URL || `http://localhost:${PORT}`}`);
+});
