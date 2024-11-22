@@ -15,6 +15,16 @@ const updateCart = async (userDoc, cart) => {
   await userDoc.ref.update({ cart });
 };
 
+// Get the user's cart model
+const getUserCart = async (email) => {
+ 
+  const userDoc = await findUserByEmail(email);
+  const userData = userDoc.data();
+  const cart = (userData.cart || []).map(item => ({ productId: item.productId, quantity: item.quantity }));
+
+  return cart; // Return cart or an empty array if no cart exists
+};
+
 // Add or update the product in the cart
 const toggleProductInCart = (cart, productId, quantity) => {
   const existingProductIndex = cart.findIndex(item => item.productId === productId);
@@ -35,5 +45,6 @@ module.exports = {
   findUserByEmail,
   updateCart,
   toggleProductInCart,
-  removeProductFromCart
+  removeProductFromCart,
+  getUserCart
 };
