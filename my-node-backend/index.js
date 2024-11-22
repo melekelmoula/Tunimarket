@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
+const routes = require('./routes/approutes');  // Make sure this path is correct
 
 const app = express();
-const routes = require('./routes/approutes'); // Import your routes
 
 const allowedOrigins = [
   'http://localhost:3000',
@@ -25,7 +25,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use(routes);
+app.use(routes);  // Use the routes you defined in approutes.js
 
-// Export as serverless function
+// Export as a serverless function for Vercel
 module.exports = serverless(app);
