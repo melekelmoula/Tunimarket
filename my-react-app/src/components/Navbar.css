@@ -1,0 +1,52 @@
+.navbar {
+  background-color: #f8f9fa; /* Light background color for the navbar */
+  padding: 0.8rem 1.5rem; /* Adjust padding */
+}
+
+.nav-item {
+  margin-left: 15px;
+}
+
+.nav-link {
+  font-weight: 600; /* Bold font for nav items */
+  text-transform: capitalize; /* Ensure category names start with a capital letter */
+}
+
+.nav-link:hover {
+  background-color: #f1f1f1; /* Light background on hover */
+}
+
+.nav-link.active {
+  font-weight: 700; /* Make active link bold */
+  color: transparent; /* Color for active link */
+}
+
+.red-background {
+  background-color: transparent;
+}
+
+
+.navbar-toggler-icon {
+  background-color: #007bff; /* Change color of the burger icon */
+}
+
+/* Style for the Favorite button when active */
+.nav-link.active-favorite {
+  color: red; /* Red color for selected favorite */
+}
+
+.nav-item.ms-auto {
+  margin-left: auto;
+}
+.language-switcher-button {
+  background: transparent; /* Remove background */
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
+  display: inline-flex; /* Ensure proper alignment */
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Center horizontally */
+  cursor: pointer; /* Pointer cursor on hover */
+  width: 30px; /* Set a fixed width for the button */
+  height: 20px; /* Set a fixed height for the button */
+  transition: transform 0.2s ease-in-out; /* Smooth transition for scale effect */
+}
