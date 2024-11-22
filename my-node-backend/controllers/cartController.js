@@ -50,15 +50,11 @@ const removeFromCart = async (req, res) => {
 };
 
 // Fetch the user's cart
+// Fetch the user's cart
 const getCart = async (req, res) => {
   try {
     const { email } = req.query;
-
-    const userDoc = await cartModel.findUserByEmail(email);
-    const userData = userDoc.data();
-
-    // Return the cart
-    const cart = (userData.cart || []).map(item => ({ productId: item.productId, quantity: item.quantity }));
+    const cart = await cartModel.getUserCart(email); // Use getUserCart here instead of getCart
     res.status(200).send(cart);
   } catch (error) {
     res.status(500).json({ error: error.message });
