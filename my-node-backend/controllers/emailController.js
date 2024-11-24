@@ -1,6 +1,6 @@
 //my-node-backend\controllers\emailController.js
-const nodemailer = require('nodemailer');
 require('dotenv').config();
+const nodemailer = require('nodemailer');
 
 // Create a reusable transporter object using the default SMTP transport
 var transporter = nodemailer.createTransport({
