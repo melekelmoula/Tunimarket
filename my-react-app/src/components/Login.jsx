@@ -5,8 +5,7 @@ import { auth, signInWithPopup, googleProvider } from '../firebaseClient';
 import { useLanguage, translate } from '../contexts/LanguageContext';
 
 const Login = ({ onLoginSuccess }) => {
-  const { language } = useLanguage();
-
+  const { language } = useLanguage(); // Get the current language
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -72,19 +71,15 @@ const Login = ({ onLoginSuccess }) => {
   return (
     <div className="login-container">
       <div className="login-form">
-        <h2 className="text-center">
-          {isRegistering ? translate('register', language) : translate('login', language)}
-        </h2>
+        <h2>{isRegistering ? translate('register', language) : translate('login', language)}</h2>
         <input
           type="email"
-          className="form-control"
           placeholder={translate('email', language)}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
-          className="form-control"
           placeholder={translate('password', language)}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -92,7 +87,6 @@ const Login = ({ onLoginSuccess }) => {
         {isRegistering && (
           <input
             type="password"
-            className="form-control"
             placeholder={translate('confirmPassword', language)}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -100,23 +94,17 @@ const Login = ({ onLoginSuccess }) => {
         )}
         {!isRegistering && (
           <>
-            <button className="btn-primary" onClick={handleEmailLogin}>
-              {translate('login', language)}
-            </button>
-            <button className="btn-google" onClick={handleGoogleLogin}>
-              {translate('loginWithGoogle', language)}
-            </button>
+            <button onClick={handleEmailLogin}>{translate('login', language)}</button>
+            <button onClick={handleGoogleLogin}>{translate('loginWithGoogle', language)}</button>
           </>
         )}
-        <button className="btn-success" onClick={handleRegister}>
+        <button onClick={handleRegister}>
           {isRegistering ? translate('confirmRegistration', language) : translate('register', language)}
         </button>
         {isRegistering && (
-          <button className="btn-secondary" onClick={handleCancelRegistration}>
-            {translate('cancel', language)}
-          </button>
+          <button onClick={handleCancelRegistration}>{translate('cancel', language)}</button>
         )}
-        {message && <p className="message">{message}</p>}
+        <p>{message}</p>
       </div>
     </div>
   );
