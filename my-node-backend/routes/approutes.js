@@ -7,7 +7,7 @@ const { fetchCategories } = require('../controllers/categoryController');
 const { submitOrder } = require('../controllers/orderController');
 const { sendOrderCodeEmail } = require('../controllers/emailController');
 const { toggleFavorite, getFavorites } = require('../controllers/favoriteController');
-const { toggleCart, getCart, removeFromCart } = require('../controllers/cartController');
+const { addToCart, getCart, removeFromCart ,updateCartQuantity} = require('../controllers/cartController');
 
 const router = express.Router();
 
@@ -24,10 +24,15 @@ router.get('/api/products', fetchProducts);        // Fetch all products
 router.get('/api/products/:productId', fetchProductById);  // Fetch product by ID
 router.get('/api/categories', fetchCategories);    // Fetch product categories
 router.get('/api/getfavorites', getFavorites);     // Fetch favorites
-router.post('/api/cart', toggleCart);              // Add or update product in the cart
-router.post('/api/cart/remove', removeFromCart);   // Remove product from cart
+
+router.post('/api/cart', addToCart);              // Add product in the cart
+router.delete('/api/cart', removeFromCart); // Remove product from cart
 router.get('/api/cart', getCart);                  // Get the cart of a user
+router.put('/api/cart', updateCartQuantity); // Update product quantity in cart
+
+
 router.get('/', (req, res) => {
     res.send('Hey! Your server is up and running 🚀');
 });
+
 module.exports = router;
