@@ -244,7 +244,7 @@ function App() {
     return filteredProducts;
   };
 
-  const onLoginSuccess = async () => {
+   const onLoginSuccess = async () => {
     setSelectedProduct(currentSelectedProduct); 
 
     const isAdmin = window.localStorage.getItem('isAdmin') === 'true';
@@ -301,9 +301,9 @@ function App() {
         );
   
         // Add remaining valid products back to the cart
-        updatedCartItems.forEach(cartItem => {
-          additemnotloggedindatabase(cartItem.product, cartItem.quantity); // Add valid product with its quantity
-        });
+        for (const cartItem of updatedCartItems) {
+          await additemnotloggedindatabase(cartItem.product, cartItem.quantity); // Wait for each operation to complete
+        }
 
         //alert("Updated Cart Items: " + JSON.stringify(updatedCartItems, null, 2));
   
