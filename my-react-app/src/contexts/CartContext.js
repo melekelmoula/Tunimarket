@@ -25,54 +25,47 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (product, quantity) => {
     const email = window.localStorage.getItem('email');
     
-    // Check if the product is already in the cart
+    // First, check if the product is already in the cart
     const existingProductIndex = cartItems.findIndex(item => item.product.id === product.id);
     
     // If the product is in the cart, update the quantity
-    const updatedQuantity = existingProductIndex >= 0
-      ? cartItems[existingProductIndex].quantity + quantity
-      : quantity;
-    
-    // Ensure the quantity does not exceed stock
-    const finalQuantity = Math.min(updatedQuantity, product.stock);
+    if (existingProductIndex >= 0) {
+      setCartItems((prevItems) => {
+        const updatedItems = [...prevItems];
+        updatedItems[existingProductIndex].quantity += quantity;
   
-    if (email) {
-      try {
-        if (existingProductIndex >= 0) {
-          // Update quantity in the cart via API
-          await axios.put('https://tuni-market.vercel.app/api/cart', {
-            email,
-            productId: product.id,
-            quantity: finalQuantity,
-          });
-        } else {
-          // Add the product to the cart via API
+        // Ensure the quantity does not exceed stock
+        if (updatedItems[existingProductIndex].quantity > product.stock) {
+          updatedItems[existingProductIndex].quantity = product.stock;
+        }
+  
+        return updatedItems;
+      });
+  
+     
+    } else {
+      // If the product is not in the cart
+      if (email) {
+        try {
+          // Make API call to add the product to the cart
           await axios.post('https://tuni-market.vercel.app/api/cart', {
             email,
             productId: product.id,
-            quantity: finalQuantity,
+            quantity,
           });
+  
+          // After successful API call, update the state
+          setCartItems((prevItems) => [...prevItems, { product, quantity }]);
+        } catch (error) {
+          console.error('Error adding product to cart:', error);
         }
-      } catch (error) {
-        console.error('Error updating or adding product to cart:', error);
+      } else {
+        // If no email, just update the cart locally
+        setCartItems((prevItems) => [...prevItems, { product, quantity }]);
       }
     }
-  
-    // Update the cart locally
-    setCartItems((prevItems) => {
-      const updatedItems = [...prevItems];
-      if (existingProductIndex >= 0) {
-        updatedItems[existingProductIndex].quantity = finalQuantity;
-      } else {
-        updatedItems.push({ product, quantity: finalQuantity });
-      }
-      return updatedItems;
-    });
   };
   
-  
-  
-
   const additemnotloggedindatabase = async (product, quantity) => {
     const email = window.localStorage.getItem('email');
         try {
