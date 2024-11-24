@@ -25,16 +25,18 @@ const getUserCart = async (email) => {
   return cart; // Return cart or an empty array if no cart exists
 };
 
-// Add or update the product in the cart
-const toggleProductInCart = (cart, productId, quantity) => {
-  const existingProductIndex = cart.findIndex(item => item.productId === productId);
-  if (existingProductIndex >= 0) {
-    cart[existingProductIndex].quantity = quantity;
-  } else {
+// Add the product to the cart only if it doesn't already exist
+const addProductInCart = (cart, productId, quantity) => {
+  const existingProduct = cart.find(item => item.productId === productId);
+
+  // Only add if the product doesn't already exist
+  if (!existingProduct) {
     cart.push({ productId, quantity });
   }
+
   return cart;
 };
+
 
 // Remove product from the cart
 const removeProductFromCart = (cart, productId) => {
@@ -44,7 +46,7 @@ const removeProductFromCart = (cart, productId) => {
 module.exports = {
   findUserByEmail,
   updateCart,
-  toggleProductInCart,
+  addProductInCart,
   removeProductFromCart,
   getUserCart
 };
