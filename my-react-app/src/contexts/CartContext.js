@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
 
   const fetchCart = async (email) => {
     try {
-      const response = await axios.get(`https://tuni-market.vercel.app/api/cart`, { params: { email } });
+      const response = await axios.get(`http://localhost:5000/api/cart`, { params: { email } });
       //alert(JSON.stringify(response.data, null, 2)); // Shows formatted cart items in the alert
 
       return response; // Return the response
@@ -41,7 +41,7 @@ if (existingProductIndex >= 0) {
       // If the product is not in the cart and email exists, make an API call
       if (email != null) {
         try {
-          await axios.post('https://tuni-market.vercel.app/api/cart', {
+          await axios.post('http://localhost:5000/api/cart', {
             email,
             productId: product.id,
             quantity,
@@ -61,7 +61,7 @@ if (existingProductIndex >= 0) {
   const additemnotloggedindatabase = async (product, quantity) => {
     const email = window.localStorage.getItem('email');
         try {
-          await axios.post('https://tuni-market.vercel.app/api/cart', {
+          await axios.post('http://localhost:5000/api/cart', {
             email,
             productId: product.id,
             quantity,
@@ -74,14 +74,13 @@ if (existingProductIndex >= 0) {
   
   const removeFromCart = async (productId) => {
     const email = window.localStorage.getItem('email');
-
+  
     setCartItems((prevItems) => prevItems.filter(item => item.product.id !== productId));
-
+  
     if (email != null) {
       try {
-        await axios.post('https://tuni-market.vercel.app/api/cart/remove', {
-          email,
-          productId,
+        await axios.delete('http://localhost:5000/api/cart', {
+          data: { email, productId }, // Pass the data object for DELETE requests
         });
       } catch (error) {
         console.error('Error removing product from cart:', error);
@@ -89,11 +88,13 @@ if (existingProductIndex >= 0) {
     }
   };
   
+  
 
   // Update product quantity in cart
   const updateQuantity = async (productId, newQuantity) => {
     const email = window.localStorage.getItem('email');
   
+    // Update the local state optimistically
     setCartItems((prevItems) => {
       const updatedItems = prevItems.map(item => {
         if (item.product.id === productId) {
@@ -103,15 +104,15 @@ if (existingProductIndex >= 0) {
       });
       return updatedItems;
     });
-
+  
+    // Update the server
     if (email != null) {
       try {
-        await axios.post('https://tuni-market.vercel.app/api/cart', {
+        await axios.put('http://localhost:5000/api/cart', {
           email,
           productId,
           quantity: newQuantity,
         });
-        
       } catch (error) {
         console.error('Error updating product quantity:', error);
       }
