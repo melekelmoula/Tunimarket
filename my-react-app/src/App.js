@@ -369,7 +369,7 @@ function App() {
       {/* Conditionally render the Add Product button for non-admin users */}
       {!isAdmin && (
         <button className="btn btn-primary" onClick={handleAddProductClick}>
-          {showForm ? <span>Close Form</span> : <><FaPlus /></>}
+          {showForm ? <span style={{ fontFamily: 'arial', fontSize: '16px'}}>__</span> : <><FaPlus /></>}
         </button>
       )}
 
