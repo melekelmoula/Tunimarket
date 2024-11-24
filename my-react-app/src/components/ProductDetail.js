@@ -1,109 +1,122 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet'; // Import Helmet
+import { Helmet } from 'react-helmet';
 import { useCart } from '../contexts/CartContext';
 import axios from 'axios';
 import { useLanguage, translate } from '../contexts/LanguageContext';
 
 const ProductDetail = () => {
-  const { productId } = useParams();
-  const { addToCart, removeFromCart, cartItems } = useCart();
-  const [product, setProduct] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isInCart, setIsInCart] = useState(false);
-  const { language } = useLanguage();
+  const { productId } = useParams(); // Retrieve product ID from the URL
+  const { addToCart, removeFromCart, cartItems } = useCart(); // Access cart actions and current cart items
+  const [product, setProduct] = useState(null); // State to store product details
+  const [isFavorite, setIsFavorite] = useState(false); // State to check if product is in favorites
+  const [isInCart, setIsInCart] = useState(false); // State to check if product is in the cart
+  const { language } = useLanguage(); // Access current language for translations
 
+  // useEffect to fetch product data when the component mounts or when the productId changes
   useEffect(() => {
-    // Fetch product data only if productId changes
+    // Fetch product data from API
     const fetchProductData = async () => {
       try {
         const { data } = await axios.get(`https://tuni-market.vercel.app/api/products/${productId}`);
-        setProduct(data);
+        setProduct(data); // Store fetched product data in state
       } catch (error) {
         console.error('Error fetching product data:', error);
-        window.history.pushState({}, '', '/404');
+        window.history.pushState({}, '', '/404'); // Redirect to 404 if product data fetching fails
       }
     };
 
     if (productId) {
-      fetchProductData();
+      fetchProductData(); // Only fetch if productId exists
     }
   }, [productId]);
 
+  // useEffect to check cart and favorites when product and cartItems are available
   useEffect(() => {
-    // Check if product and cartItems are available before running this
     if (product && cartItems) {
-      onFavoriteCheck();
-      checkIfInCart();
+      onFavoriteCheck(); // Check if product is in favorites
+      checkIfInCart(); // Check if product is in the cart
     }
-  }, [product, cartItems]);
+  }, [product, cartItems]); // Run whenever product or cartItems change
 
+  // Check if the product is in favorites
   const onFavoriteCheck = async () => {
-    const userEmail = window.localStorage.getItem('email');
+    const userEmail = window.localStorage.getItem('email'); // Get user email from localStorage
     try {
       const { data: favoriteProducts } = await axios.get(`https://tuni-market.vercel.app/api/getfavorites?email=${userEmail}`);
       const isFavoriteProduct = favoriteProducts.some(favorite => favorite.id === product.id);
-      setIsFavorite(isFavoriteProduct);
+      setIsFavorite(isFavoriteProduct); // Update favorite status
     } catch (error) {
       console.error('Error fetching favorites:', error);
     }
   };
 
+  // Check if the product is already in the cart
   const checkIfInCart = () => {
     const existingProduct = cartItems.find(item => item.product.id === product.id);
-    setIsInCart(!!existingProduct);
+    setIsInCart(!!existingProduct); // Set in cart status based on whether the product is found
   };
 
+  // Add product to cart
   const handleAddToCart = () => {
-    addToCart(product, 1);
-    setIsInCart(true);
+    addToCart(product, 1); // Add one unit of the product to the cart
+    setIsInCart(true); // Update in cart status
   };
 
+  // Remove product from cart
   const handleRemoveFromCart = () => {
-    removeFromCart(product.id);
-    setIsInCart(false);
+    removeFromCart(product.id); // Remove product from cart
+    setIsInCart(false); // Update in cart status
   };
 
+  // Toggle product in favorites
   const handleToggleFavorite = async () => {
-    const userEmail = window.localStorage.getItem('email');
+    const userEmail = window.localStorage.getItem('email'); // Get user email from localStorage
+    if (!userEmail) {
+      alert('Please login to add to favorites'); // Notify user if not logged in
+      return;
+    }
     try {
       await axios.post('https://tuni-market.vercel.app/api/favorites', {
         email: userEmail,
         productId: product.id,
       });
-      setIsFavorite(prevState => !prevState);
+      setIsFavorite(prevState => !prevState); // Toggle favorite status
     } catch (error) {
       console.error('Error toggling favorite:', error);
     }
   };
 
-  // Directly return null or an empty fragment if no product is found
+  // If no product data is available, return null (render nothing)
   if (!product) return null;
 
   return (
-    <div className="product-detail-wrapper">
-      {/* Helmet for SEO */}
+    <article className="product-detail-wrapper">
       <Helmet>
         <title>{product.name} - MyStore</title>
-        <meta name="description" content={`Buy ${product.name} for just $${product.price}.`} />
+        <meta name="description" content={`Buy ${product.name} for just ${product.price}TND.`} />
         <meta name="keywords" content={`${product.name}, ${product.category}, buy ${product.name}, ${product.location}, TuniMarket`} />
         <link rel="canonical" href={`https://tuni-market.vercel.app/product/${product.id}`} />
       </Helmet>
 
       <div className="container mt-5">
         <div className="row mt-4">
-          <div className="col-md-6">
+          {/* Product Image Section */}
+          <figure className="col-md-6">
             <img src={product.imageUrl} alt={product.name} className="img-fluid" style={{ maxHeight: '500px', objectFit: 'contain' }} />
-          </div>
-          <div className="col-md-6">
-            <h3>{product.name}</h3>
-            <p><strong>{translate('price', language)}:</strong> ${product.price}</p>
-            <p><strong>{translate('category', language)}:</strong> {translate(product.category, language)}</p> {/* Translate the category */}
+          </figure>
+
+          {/* Product Details Section */}
+          <section className="col-md-6">
+            <h1>{product.name}</h1>
+            <p><strong>{translate('price', language)}:</strong> {product.price}TND</p>
+            <p><strong>{translate('category', language)}:</strong> {translate(product.category, language)}</p>
             <p><strong>{translate('location', language)}:</strong> {product.location}</p>
             <p><strong>{translate('stock', language)}:</strong> {product.stock}</p>
             <p><strong>{translate('addedBy', language)}:</strong> {product.username}</p>
             <p><strong>{translate('productId', language)}:</strong> {product.id}</p>
 
+            {/* Action Buttons */}
             <div className="button-group">
               {isInCart ? (
                 <button className="btn btn-warning mt-3 me-2" onClick={handleRemoveFromCart}>
@@ -121,10 +134,10 @@ const ProductDetail = () => {
                 {isFavorite ? translate('removeFromFavorites', language) : translate('addToFavorites', language)}
               </button>
             </div>
-          </div>
+          </section>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
