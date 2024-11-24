@@ -1,41 +1,129 @@
-// my-react-app\src\components\AddProductForm.js
-import React, { Component } from 'react';
+import React from 'react'; 
+import { useLanguage, translate } from '../contexts/LanguageContext'; // Importing language context and translation function
 
-class AddProductForm extends Component {
-  render() {
-    const { formData, handleChange, handleSubmit, categories } = this.props;
+// The AddProductForm component receives formData, handleChange, handleSubmit, and categories as props.
+const AddProductForm = ({ formData, handleChange, handleSubmit, categories }) => {
+  const { language } = useLanguage(); // Use the hook to get the current language from context
 
-    return (
-      <div className="card p-4 mb-4">
-        <h2 className="text-center">Add New Product</h2>
-        <form onSubmit={handleSubmit} className="mt-3">
-          {['name', 'price', 'location', 'stock', 'image'].map((field) => (
-            <div className="form-group mt-3" key={field}>
-              <input
-                type={field === 'price' || field === 'stock' ? 'number' : field === 'image' ? 'file' : 'text'}
-                className="form-control"
-                placeholder={`Product ${field.charAt(0).toUpperCase() + field.slice(1)}`}
-                name={field}
-                value={field !== 'image' ? formData[field] : undefined}
-                onChange={handleChange}
-                min={field === 'price' ? 0 : 1}
-                required
-              />
-            </div>
-          ))}
-          <select className="form-control mt-3" name="category" value={formData.category} onChange={handleChange} required>
-            <option value="">Select Category</option>
+  return (
+    <div className="card p-4 mb-4"> {/* Card container for the form */}
+      <h2 className="text-center">{translate('addProduct', language)}</h2> {/* Translated heading */}
+      
+      <form onSubmit={handleSubmit} className="mt-3"> {/* Form with submission handler */}
+        
+        {/* Product Name Input */}
+        <div className="form-group mt-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder={translate('productName', language)} // Translated placeholder text
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* Product Price Input */}
+        <div className="form-group mt-3">
+          <input
+            type="number"
+            className="form-control"
+            placeholder={translate('enterPrice', language)} // Translated placeholder text
+            name="price"
+            onChange={handleChange}
+            min="0"
+            required
+            style={{
+              width: '100%', // Full width of the input
+              fontSize: '16px',
+              textAlign: 'left',
+              padding: '10px',
+            }}
+          />
+        </div>
+
+        {/* Product Location Input */}
+        <div className="form-group mt-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder={translate('enterLocation', language)} // Translated placeholder text
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* Product Stock Input */}
+        <div className="form-group mt-3">
+          <input
+            type="number"
+            className="form-control"
+            placeholder={translate('enterStock', language)} // Translated placeholder text
+            name="stock"
+            onChange={handleChange}
+            min="1"
+            required
+            style={{
+              width: '100%', // Full width of the input
+              fontSize: '16px',
+              textAlign: 'left',
+              padding: '10px',
+            }}
+          />
+        </div>
+
+        {/* Product Image Input */}
+        <div className="form-group mt-3">
+          <input
+            type="file"
+            className="form-control"
+            name="image"
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* Category Selection and Submit Button */}
+        <span className="form-group mt-3" style={{ display: 'flex', alignItems: 'center' }}>
+          <select
+            className="form-control"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+            style={{ marginRight: '10px' }}  // Add some space between select and button
+          >
+            <option value="">{translate('selectCategory', language)}</option> {/* Default option */}
+            
+            {/* Mapping categories to options */}
             {categories.map((cat) => (
               <option key={cat.id} value={cat.name}>
-                {cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}
+                {translate(cat.name, language)} {/* Translate category name */}
               </option>
             ))}
           </select>
-          <button type="submit" className="btn btn-success w-100 mt-4">Add Product</button>
-        </form>
-      </div>
-    );
-  }
+          
+          {/* Submit Button */}
+          <button 
+            type="submit"
+            style={{
+              fontSize: '50px',  // Large plus sign
+              background: 'transparent',
+              color: 'black',  // Black text color
+              width: '9%',  // Adjust width of button
+              padding: '1px',  // Add padding as desired
+            }}
+          >
+            +
+          </button>
+        </span>
+
+      </form>
+    </div>
+  );
 }
 
 export default AddProductForm;
