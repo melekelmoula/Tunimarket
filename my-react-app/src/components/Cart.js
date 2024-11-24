@@ -45,11 +45,12 @@ function Cart({ Carthide, handleSubmitOrder }) {
   
       // Retrieve the cart items from localStorage and display them in an alert
       const savedCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-      /*
+      
       const cartItemsAlert = savedCartItems
         .map(item => `Product ID: ${item.productId}, Quantity: ${item.quantity}`)
         .join('\n'); // Create a string of cart items
-      */
+        
+        alert(`Cart items saved in localStorage:\n${cartItemsAlert}`);
       return; // Exit the function
     }
 
