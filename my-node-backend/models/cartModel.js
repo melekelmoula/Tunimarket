@@ -27,10 +27,10 @@ const getUserCart = async (email) => {
 
 // Add the product to the cart only if it doesn't already exist
 const addProductInCart = (cart, productId, quantity) => {
-  const existingProduct = cart.find(item => item.productId === productId);
-
-  // Only add if the product doesn't already exist
-  if (!existingProduct) {
+  const existingProductIndex = cart.findIndex(item => item.productId === productId);
+  if (existingProductIndex >= 0) {
+    cart[existingProductIndex].quantity = quantity;
+  } else {
     cart.push({ productId, quantity });
   }
 
