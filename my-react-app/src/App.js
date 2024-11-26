@@ -64,12 +64,14 @@ function App() {
     }
   }, [isAdmin]);
 
-  useEffect(() => {
+   useEffect(() => {
     const storedUsername = window.localStorage.getItem('username');
     const storedIsAdmin = window.localStorage.getItem('isAdmin') === 'true';
     const storedEmail = window.localStorage.getItem('email');
-  
-    if (storedUsername && storedEmail) {
+    const idToken = window.localStorage.getItem('idToken');  // Get the token from localStorage
+
+    if (storedUsername && storedEmail&&idToken) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${idToken}`;
       setIsLoggedIn(true);
       setIsAdmin(storedIsAdmin);
       onLoginSuccess(); // Optionnel : récupérer le panier ou d'autres données utilisateur
