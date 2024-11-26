@@ -5,7 +5,7 @@ import { auth, signInWithPopup, googleProvider } from '../firebaseClient';
 import { useLanguage, translate } from '../contexts/LanguageContext';
 
 const Login = ({ onLoginSuccess }) => {
-  const { language } = useLanguage(); // Get the current language
+  const { language } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,26 +28,49 @@ const Login = ({ onLoginSuccess }) => {
   };
 
   const setAuthData = (data, email) => {
+    // Store the token in localStorage and in the request headers
     window.localStorage.setItem('auth', 'true');
     window.localStorage.setItem('isAdmin', data.isAdmin ? 'true' : 'false');
     window.localStorage.setItem('email', email);
     window.localStorage.setItem('username', email.split('@')[0]);
+
+    // Store the ID token in localStorage and in the axios headers
+    const idToken = data.idToken;
+    window.localStorage.setItem('idToken', idToken);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${idToken}`;
+
+    // Show ID token in alert
+    alert(`ID Token: ${idToken}`);
   };
 
   const handleEmailLogin = () => {
-    handleResponse('https://tuni-market.vercel.app/auth/login', { email, password }, onLoginSuccess);
+    handleResponse('http://localhost:5000/auth/login', { email, password }, onLoginSuccess);
   };
 
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const idToken = await result.user.getIdToken();
-      handleResponse('https://tuni-market.vercel.app/auth/google', { idToken }, onLoginSuccess);
+  
+      // Save the relevant Google user data to localStorage
+      window.localStorage.setItem('auth', 'true');
+      window.localStorage.setItem('isAdmin', 'false'); // Assuming Google login is not admin by default; modify as needed
+      window.localStorage.setItem('email', result.user.email);
+      window.localStorage.setItem('username', result.user.email.split('@')[0]);
+      window.localStorage.setItem('idToken', idToken);
+  
+      // Update the Axios authorization header with the new ID token
+      axios.defaults.headers.common['Authorization'] = `Bearer ${idToken}`;
+  
+      // Proceed with your handleResponse logic for Google login
+      handleResponse('http://localhost:5000/auth/google', { idToken }, onLoginSuccess);
+  
     } catch (error) {
       setMessage(translate('googleLoginFailed', language));
       console.error(error);
     }
   };
+  
 
   const handleRegister = () => {
     if (isRegistering) {
@@ -55,7 +78,7 @@ const Login = ({ onLoginSuccess }) => {
         setMessage(translate('passwordMismatch', language));
         return;
       }
-      handleResponse('https://tuni-market.vercel.app/auth/register', { email, password }, handleEmailLogin);
+      handleResponse('http://localhost:5000/auth/register', { email, password }, handleEmailLogin);
     } else {
       setIsRegistering(true);
       setMessage('');
