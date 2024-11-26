@@ -40,7 +40,7 @@ const Login = ({ onLoginSuccess }) => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${idToken}`;
 
     // Show ID token in alert
-    alert(`ID Token: ${idToken}`);
+    //alert(`ID Token: ${idToken}`);
   };
 
   const handleEmailLogin = () => {
