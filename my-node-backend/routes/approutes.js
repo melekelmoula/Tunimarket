@@ -1,5 +1,3 @@
-// my-node-backend/routes/approutes.js
-
 const express = require('express');
 const { registerUser, loginWithGoogle, handleLogin } = require('../controllers/authController');
 const { createProduct, fetchProducts, fetchProductById } = require('../controllers/productController');
@@ -7,32 +5,35 @@ const { fetchCategories } = require('../controllers/categoryController');
 const { submitOrder } = require('../controllers/orderController');
 const { sendOrderCodeEmail } = require('../controllers/emailController');
 const { toggleFavorite, getFavorites } = require('../controllers/favoriteController');
-const { addToCart, getCart, removeFromCart ,updateCartQuantity} = require('../controllers/cartController');
+const { addToCart, getCart, removeFromCart, updateCartQuantity } = require('../controllers/cartController');
+const { decodeToken } = require('../middleware/index');
 
 const router = express.Router();
 
-// Define routes
-router.post('/api/products', createProduct);       // Create a new product
-router.post('/auth/register', registerUser);       // Register a new user
-router.post('/auth/google', loginWithGoogle);
-router.post('/auth/login', handleLogin);
-router.post('/api/orders', submitOrder);           // Add a new order
-router.post('/api/send-order-code', sendOrderCodeEmail); // Send order code email
-router.post('/api/favorites', toggleFavorite);     // Add or remove favorites
+// Public Routes
+router.post('/auth/register', registerUser);         // Register a new user
+router.post('/auth/google', loginWithGoogle);        // Google login
+router.post('/auth/login', handleLogin);             // Email login
 
-router.get('/api/products', fetchProducts);        // Fetch all products
-router.get('/api/products/:productId', fetchProductById);  // Fetch product by ID
-router.get('/api/categories', fetchCategories);    // Fetch product categories
-router.get('/api/getfavorites', getFavorites);     // Fetch favorites
+router.get('/api/products', fetchProducts);          // Fetch all products
+router.get('/api/products/:productId', fetchProductById); // Fetch product by ID
+router.get('/api/categories', fetchCategories);      // Fetch product categories
 
-router.post('/api/cart', addToCart);              // Add product in the cart
-router.delete('/api/cart', removeFromCart); // Remove product from cart
-router.get('/api/cart', getCart);                  // Get the cart of a user
-router.put('/api/cart', updateCartQuantity); // Update product quantity in cart
+// Protected Routes - Require decodeToken middleware
+router.post('/api/products', decodeToken, createProduct); 
+router.post('/api/orders', decodeToken, submitOrder);      
+router.post('/api/send-order-code', decodeToken, sendOrderCodeEmail);
+router.post('/api/favorites', decodeToken, toggleFavorite);
+router.get('/api/getfavorites', decodeToken, getFavorites);
 
+router.post('/api/cart', decodeToken, addToCart);    
+router.delete('/api/cart', decodeToken, removeFromCart); 
+router.put('/api/cart', decodeToken, updateCartQuantity);
+router.get('/api/cart', decodeToken, getCart);       
 
+// Health Check Route
 router.get('/', (req, res) => {
-    res.send('Hey! Your server is up and running 🚀');
+  res.send('Hey! Your server is up and running 🚀');
 });
 
 module.exports = router;
