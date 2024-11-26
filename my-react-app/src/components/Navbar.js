@@ -1,25 +1,33 @@
-// my-react-app\src\components\Navbar.js
-import React, { useState } from 'react'; // Import React and the useState hook
-import { FaShoppingCart, FaHome, FaHeart } from 'react-icons/fa'; // Importing icons for cart, home, and favorite
-import { useCart } from '../contexts/CartContext'; // Importing context to access cart data
-import { useLanguage, translate } from '../contexts/LanguageContext';  // Import translate
-import Flag from 'react-world-flags';
-import './Navbar.css';
+// Import necessary libraries and components
+import React, { useState } from 'react'; 
+import { FaShoppingCart, FaHome, FaHeart } from 'react-icons/fa'; 
+import { useCart } from '../contexts/CartContext'; // Cart context to manage cart data
+import { useLanguage, translate } from '../contexts/LanguageContext'; // Language context for translations
+import Flag from 'react-world-flags'; // For showing language flags
+import './Navbar.css'; // Import CSS for styling
 
-// Navbar component function
-function Navbar({ categories, displayCategory, setDisplayCategory, onCartClick, onHomeClick, onFavoriteClick, onSearch }) {
-  const { cartItemCount } = useCart(); // Using the cart context to get the number of items in the cart
+// Navbar component that accepts props for various functionality
+function Navbar({
+  categories, // List of product categories
+  displayCategory, // Currently displayed category
+  setDisplayCategory, // Function to update the displayed category
+  onCartClick, // Handler for cart button click
+  onHomeClick, // Handler for home button click
+  onFavoriteClick, // Handler for favorite button click
+  onSearch, // Handler for search input change
+}) {
+  const { cartItemCount } = useCart(); // Get the number of items in the cart from context
   const [searchQuery, setSearchQuery] = useState(''); // State for managing search input
-  const { language, switchLanguage } = useLanguage(); // Use language from context
+  const { language, switchLanguage } = useLanguage(); // Get current language and function to switch language
 
-  // Handle search input change
+  // Function to handle changes in the search input field
   const handleSearchChange = (e) => {
-    const query = e.target.value; // Get the value from the input field
-    setSearchQuery(query); // Update the searchQuery state
-    onSearch(query); // Call the parent component's search handler
+    const query = e.target.value;
+    setSearchQuery(query); // Update the search query state
+    onSearch(query); // Pass the search query to the parent component
   };
 
-  // Get the email from local storage (to check if user is logged in)
+  // Check if the user is logged in by retrieving their email from local storage
   const email = window.localStorage.getItem('email');
 
   return (
@@ -90,7 +98,7 @@ function Navbar({ categories, displayCategory, setDisplayCategory, onCartClick, 
 
   <button 
     onClick={() => switchLanguage(language === 'en' ? 'fr' : 'en')}
-    className="red-background"
+    className="Flag-background"
   >
     <Flag code={language === 'en' ? 'FR' : 'GB'} alt="language flag" width="24" height="16" />
   </button>
