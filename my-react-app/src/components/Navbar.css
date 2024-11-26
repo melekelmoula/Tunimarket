@@ -1,52 +1,47 @@
-.navbar {
-  background-color: #f8f9fa; /* Light background color for the navbar */
-  padding: 0.8rem 1.5rem; /* Adjust padding */
+/* Navbar.css */
+.navbar-light.bg-light {
+  background-color: transparent !important;
 }
 
-.nav-item {
-  margin-left: 15px;
+/* Navbar.css */
+
+/* Target navbar links and increase font size */
+.navbar .nav-link {
+  font-size: 17px; /* Adjust the size to your preference */
 }
 
-.nav-link {
-  font-weight: 600; /* Bold font for nav items */
-  text-transform: capitalize; /* Ensure category names start with a capital letter */
+/* If you want to increase the text size of the search input and placeholder */
+.navbar .form-control {
+  font-size: 16px; /* Adjust to your preference */
 }
 
-.nav-link:hover {
-  background-color: #f1f1f1; /* Light background on hover */
+/* Adjust the size of cart item count */
+.navbar .badge {
+  font-size: 10px; /* Adjust to your preference */
 }
 
-.nav-link.active {
-  font-weight: 700; /* Make active link bold */
-  color: transparent; /* Color for active link */
+.Flag-background{
+  background-color: transparent !important;
+
 }
 
-.red-background {
-  background-color: transparent;
+.navbar-light.bg-light {
+  background-color: transparent !important;
 }
 
-
-.navbar-toggler-icon {
-  background-color: #007bff; /* Change color of the burger icon */
+.navbar .nav-link {
+  font-size: 17px;
 }
 
-/* Style for the Favorite button when active */
-.nav-link.active-favorite {
-  color: red; /* Red color for selected favorite */
+.navbar .form-control {
+  font-size: 16px;
 }
 
-.nav-item.ms-auto {
-  margin-left: auto;
+.navbar .badge {
+  font-size: 10px;
 }
-.language-switcher-button {
-  background: transparent; /* Remove background */
-  border: none; /* Remove border */
-  padding: 0; /* Remove padding */
-  display: inline-flex; /* Ensure proper alignment */
-  align-items: center; /* Vertically center content */
-  justify-content: center; /* Center horizontally */
-  cursor: pointer; /* Pointer cursor on hover */
-  width: 30px; /* Set a fixed width for the button */
-  height: 20px; /* Set a fixed height for the button */
-  transition: transform 0.2s ease-in-out; /* Smooth transition for scale effect */
+
+.Flag-background {
+  background-color: transparent !important;
 }
+
