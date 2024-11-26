@@ -7,16 +7,21 @@ const serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG);
 // Initialize Firebase Admin SDK
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://proj-b98cd-default-rtdb.europe-west1.firebasedatabase.app/', // Replace with your Firebase Realtime Database URL
-  storageBucket: 'proj-b98cd.appspot.com', // Replace with your Firebase Storage bucket
+  databaseURL: 'https://proj-b98cd-default-rtdb.europe-west1.firebasedatabase.app', // Realtime Database URL
+  storageBucket: 'proj-b98cd.appspot.com', // Firebase Storage bucket
 });
 
-// Initialize Firestore and Storage
+// Initialize Firestore, Storage, Realtime Database, and Auth
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
 const realtimeDb = admin.database(); // Realtime Database
+const authentication = admin.auth(); // Firebase Authentication
 
-// Export the admin, db, bucket, and authentication for use in other modules
-module.exports = { admin, db, bucket, authentication: admin.auth() ,realtimeDb};
-
-//gcloud alpha firestore databases update --type=firestore-native for firebase google cloud console
+// Export initialized services
+module.exports = {
+  admin,
+  db,
+  bucket,
+  authentication,
+  realtimeDb,
+};
