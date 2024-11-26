@@ -43,7 +43,7 @@ function Navbar({
           <ul className="navbar-nav">
             {/* Home button */}
             <li className="nav-item ms-3">
-            <button className="nav-link" onClick={onHomeClick}>
+              <button className="nav-link" onClick={onHomeClick}>
                 <FaHome /> 
               </button>
             </li>
@@ -88,23 +88,21 @@ function Navbar({
             <input
               type="text"
               className="form-control"
-              placeholder= {translate('Search',language)} // Placeholder text in the search bar
+              placeholder={email ? translate('Search', language) : 'Sign in to search'} // Conditional placeholder
               value={searchQuery} // Controlled input, using searchQuery state
               onChange={handleSearchChange} // Update the searchQuery state when user types
+              disabled={!email} // Disable the search bar if email is not found
             />
           </form>
+
           <span>
-
-
-  <button 
-    onClick={() => switchLanguage(language === 'en' ? 'fr' : 'en')}
-    className="Flag-background"
-  >
-    <Flag code={language === 'en' ? 'FR' : 'GB'} alt="language flag" width="24" height="16" />
-  </button>
-</span>
-
-          
+            <button 
+              onClick={() => switchLanguage(language === 'en' ? 'fr' : 'en')}
+              className="Flag-background"
+            >
+              <Flag code={language === 'en' ? 'FR' : 'GB'} alt="language flag" width="24" height="16" />
+            </button>
+          </span>
         </div>
       </div>
     </nav>
