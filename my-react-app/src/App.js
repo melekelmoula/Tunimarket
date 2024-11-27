@@ -44,32 +44,25 @@ function App() {
 
   const [allproducts, setllProducts] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        // Start both requests concurrently
-        const [categoriesResponse, productsResponse] = await Promise.all([
-          axios.get('https://tuni-market.vercel.app/api/categories'),
-          axios.get('https://tuni-market.vercel.app/api/products'),
-        ]);
-  
-        // Destructure data from responses
-        const categoriesData = categoriesResponse.data;
-        const productsData = productsResponse.data;
-  
+        const { data: categoriesData } = await axios.get('https://tuni-market.vercel.app/api/categories');
+        const { data: productsData } = await axios.get('https://tuni-market.vercel.app/api/products');
+
         setProducts(productsData);
         setllProducts(productsData);
+
         setCategories(categoriesData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-  
+
     if (!isAdmin) {
       fetchData();
     }
   }, [isAdmin]);
-  
 
   useEffect(() => {
     const storedUsername = window.localStorage.getItem('username');
