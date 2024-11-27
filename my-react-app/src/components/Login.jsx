@@ -44,7 +44,7 @@ const Login = ({ onLoginSuccess }) => {
   };
 
   const handleEmailLogin = () => {
-    handleResponse('http://localhost:5000/auth/login', { email, password }, onLoginSuccess);
+    handleResponse('https://tuni-market.vercel.app/auth/login', { email, password }, onLoginSuccess);
   };
 
   const handleGoogleLogin = async () => {
@@ -63,7 +63,7 @@ const Login = ({ onLoginSuccess }) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${idToken}`;
   
       // Proceed with your handleResponse logic for Google login
-      handleResponse('http://localhost:5000/auth/google', { idToken }, onLoginSuccess);
+      handleResponse('https://tuni-market.vercel.app/auth/google', { idToken }, onLoginSuccess);
   
     } catch (error) {
       setMessage(translate('googleLoginFailed', language));
@@ -78,7 +78,7 @@ const Login = ({ onLoginSuccess }) => {
         setMessage(translate('passwordMismatch', language));
         return;
       }
-      handleResponse('http://localhost:5000/auth/register', { email, password }, handleEmailLogin);
+      handleResponse('https://tuni-market.vercel.app/auth/register', { email, password }, handleEmailLogin);
     } else {
       setIsRegistering(true);
       setMessage('');
