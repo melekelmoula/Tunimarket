@@ -16,6 +16,7 @@ function Cart({ Carthide, handleSubmitOrder }) {
   const [inputCode, setInputCode] = useState('');
 
   const [showCodeField, setShowCodeField] = useState(false); // Track if the code input field should be shown
+  const [emailSentMessage, setEmailSentMessage] = useState(''); // New state for the email sent message
 
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity <= 0) {
@@ -66,7 +67,8 @@ function Cart({ Carthide, handleSubmitOrder }) {
           email: userEmail,
           code: code,
         });
-        console.log('Email sent:', response.data.message);
+        setEmailSentMessage('The order code has been sent to your email.'); // Update the message state
+
       } catch (error) {
         console.error('Error sending order code email:', error);
         alert('Failed to send order code to your email. Please try again.');
@@ -108,7 +110,6 @@ function Cart({ Carthide, handleSubmitOrder }) {
     <div className="cart-container">
       <div className="cart-overlay">
         <div className="cart-header">
-          <h3>Shopping Cart</h3>
           <button className="btn-close" onClick={Carthide}></button>
         </div>
         {cartItems.length === 0 ? (
@@ -182,7 +183,7 @@ function Cart({ Carthide, handleSubmitOrder }) {
             Cash on Delivery
           </label>
         </div>
-
+<br></br>
         {paymentOption === 'credit' && (
           <div className="credit-card-fields">
             <h5>Credit Card Details:</h5>
@@ -214,6 +215,11 @@ function Cart({ Carthide, handleSubmitOrder }) {
           >
             Submit Order
           </button>
+        )}
+
+        {/* Show the email sent message if it's set */}
+        {emailSentMessage && (
+          <p className="email-sent-message mt-3">{emailSentMessage}</p>
         )}
 
         {showCodeField && ( // Only show the code field if the code was generated
