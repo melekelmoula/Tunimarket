@@ -60,10 +60,12 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
                 className="card-img-top"
                 style={{ height: '200px', objectFit: 'cover' }}
               />
-              <figcaption className="card-body text-center">
-                {/* Product name */}
-                <h5 className="card-title">{product.name}</h5>
-              </figcaption>
+        <figcaption className="card-body text-center">
+        {/* Product name */}
+  <h5 className="card-title">{product.name}</h5>
+  <h7 className="card-title">{product.price + ' TND'}</h7>
+</figcaption>
+
             </figure>
           </article>
         ))}
