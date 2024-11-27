@@ -18,7 +18,7 @@ const ProductDetail = () => {
     // Fetch product data from API
     const fetchProductData = async () => {
       try {
-        const { data } = await axios.get(`https://tuni-market.vercel.app/api/products/${productId}`);
+        const { data } = await axios.get(`http://localhost:5000/api/products/${productId}`);
         setProduct(data); // Store fetched product data in state
       } catch (error) {
         console.error('Error fetching product data:', error);
@@ -43,7 +43,7 @@ const ProductDetail = () => {
   const onFavoriteCheck = async () => {
     const userEmail = window.localStorage.getItem('email'); // Get user email from localStorage
     try {
-      const { data: favoriteProducts } = await axios.get(`https://tuni-market.vercel.app/api/getfavorites?email=${userEmail}`);
+      const { data: favoriteProducts } = await axios.get(`http://localhost:5000/api/getfavorites?email=${userEmail}`);
       const isFavoriteProduct = favoriteProducts.some(favorite => favorite.id === product.id);
       setIsFavorite(isFavoriteProduct); // Update favorite status
     } catch (error) {
@@ -77,7 +77,7 @@ const ProductDetail = () => {
       return;
     }
     try {
-      await axios.post('https://tuni-market.vercel.app/api/favorites', {
+      await axios.post('http://localhost:5000/api/favorites', {
         email: userEmail,
         productId: product.id,
       });
@@ -96,10 +96,12 @@ const ProductDetail = () => {
         <title>{product.name} - MyStore</title>
         <meta name="description" content={`Buy ${product.name} for just ${product.price}TND.`} />
         <meta name="keywords" content={`${product.name}, ${product.category}, buy ${product.name}, ${product.location}, TuniMarket`} />
-        <link rel="canonical" href={`https://tuni-market.vercel.app/product/${product.id}`} />
+        <link rel="canonical" href={`http://localhost:5000/product/${product.id}`} />
+        <link rel="preload" href={product.imageUrl} as="image" />
+
       </Helmet>
 
-      <div className="container mt-5">
+      <div className="container mt-3">
         <div className="row mt-4">
           {/* Product Image Section */}
           <figure className="col-md-6">
