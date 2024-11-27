@@ -47,8 +47,8 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: productsData } = await axios.get('https://tuni-market.vercel.app/api/products');
         const { data: categoriesData } = await axios.get('https://tuni-market.vercel.app/api/categories');
+        const { data: productsData } = await axios.get('https://tuni-market.vercel.app/api/products');
 
         setProducts(productsData);
         setllProducts(productsData);
