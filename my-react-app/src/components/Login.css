@@ -50,7 +50,7 @@ body {
   
   input[type="email"]:focus,
   input[type="password"]:focus {
-    border-color: #007bff; /* Blue border on focus */
+    border-color: #4492e6; /* Blue border on focus */
     outline: none; /* Remove outline */
   }
   
@@ -58,7 +58,7 @@ body {
     width: 100%; /* Full width for buttons */
     padding: 12px; /* Increased padding */
     margin: 12px 0; /* Margin for spacing */
-    background-color: #007bff; /* Blue background */
+    background-color: #4b98f0; /* Blue background */
     color: white; /* White text color */
     border: none; /* No border */
     border-radius: 6px; /* Rounded corners */
