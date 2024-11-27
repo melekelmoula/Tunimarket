@@ -47,8 +47,8 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: productsData } = await axios.get('https://tuni-market.vercel.app/api/products');
-        const { data: categoriesData } = await axios.get('https://tuni-market.vercel.app/api/categories');
+        const { data: productsData } = await axios.get('http://localhost:5000/api/products');
+        const { data: categoriesData } = await axios.get('http://localhost:5000/api/categories');
 
         setProducts(productsData);
         setllProducts(productsData);
@@ -64,7 +64,7 @@ function App() {
     }
   }, [isAdmin]);
 
-   useEffect(() => {
+  useEffect(() => {
     const storedUsername = window.localStorage.getItem('username');
     const storedIsAdmin = window.localStorage.getItem('isAdmin') === 'true';
     const storedEmail = window.localStorage.getItem('email');
@@ -91,7 +91,7 @@ function App() {
       } else {
         // If not found in the current list, fetch it from the server
         axios
-          .get(`https://tuni-market.vercel.app/api/products/${productId}`)
+          .get(`http://localhost:5000/api/products/${productId}`)
           .then((response) => setSelectedProduct(response.data))
           .catch((error) => console.error('Error fetching product:', error));
       }
@@ -99,7 +99,7 @@ function App() {
   }, [location.pathname, products]);
   
   
-
+  //my-react-app\src\App.js
   const handleSearch = (query) => {
     if (query === '') {
       setProducts(allproducts);
@@ -112,6 +112,17 @@ function App() {
       setProducts(filtered);
     }
   };
+
+  const handleShowLoginDialog = (query) => {
+    if (!email && query.trim() !== '') {
+      setShowLoginForm(true); // Show the login form when there is a non-empty query
+      setShowProductFeed(false); // Hide the product feed if login form is shown
+    } else if (!email && query.trim() === '') {
+      setShowLoginForm(false); // Hide the login form if query is empty
+      setShowProductFeed(true); // Show the product feed if query is empty
+    }
+  };
+    
   
   const handleChange = ({ target: { name, value, files } }) =>
     setFormData(prev => ({ ...prev, [name]: name === 'image' ? files[0] : value, username, email }));
@@ -124,10 +135,10 @@ function App() {
     Object.entries(formData).forEach(([key, val]) => data.append(key, val));
 
     try {
-      await axios.post('https://tuni-market.vercel.app/api/products', data, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await axios.post('http://localhost:5000/api/products', data, { headers: { 'Content-Type': 'multipart/form-data' } });
       setFormData({ name: '', price: 0, image: null, location: '', stock: 1, category: '', username: '', email: '' });
       setShowForm(false);
-      const { data: updatedProducts } = await axios.get('https://tuni-market.vercel.app/api/products');
+      const { data: updatedProducts } = await axios.get('http://localhost:5000/api/products');
       setProducts(updatedProducts);
     } catch (error) {
       alert(`Error adding product: ${error.response?.data?.message || error.message}`);
@@ -169,11 +180,11 @@ function App() {
     };
 
     try {
-      await axios.post('https://tuni-market.vercel.app/api/orders', orderDetails);
+      await axios.post('http://localhost:5000/api/orders', orderDetails);
       setShowCart(false);
       setCartItems([]); // This will reset the cart to an empty array
-       navigate(`/`); 
-       window.location.reload(); 
+      navigate(`/`); 
+      window.location.reload();
     } catch (error) {
       alert("Error submitting order: " + error.message);
     }
@@ -246,7 +257,7 @@ function App() {
     return filteredProducts;
   };
 
-   const onLoginSuccess = async () => {
+  const onLoginSuccess = async () => {
     setSelectedProduct(currentSelectedProduct); 
 
     const isAdmin = window.localStorage.getItem('isAdmin') === 'true';
@@ -266,7 +277,7 @@ function App() {
         const lastCartLists = cartlastproduct.map(item => item.productId);
   
         // Fetch all products from the API
-        const { data: allProducts } = await axios.get('https://tuni-market.vercel.app/api/products');
+        const { data: allProducts } = await axios.get('http://localhost:5000/api/products');
   
         // Create a map of product IDs for faster lookup
         const allProductsMap = new Map(allProducts.map(product => [product.id, product]));
@@ -324,7 +335,7 @@ function App() {
     navigate(`/`); 
 
     try {
-      const { data: favoriteProducts } = await axios.get(`https://tuni-market.vercel.app/api/getfavorites?email=${userEmail}`);
+      const { data: favoriteProducts } = await axios.get(`http://localhost:5000/api/getfavorites?email=${userEmail}`);
       
       if (favoriteProducts.length === 0) {
         // Handle empty favorites case
@@ -363,6 +374,8 @@ function App() {
         onHomeClick={handleHomeClick}
         onFavoriteClick={handleFavorite} // Pass the favorite click handler
         onSearch={handleSearch}
+        onShowLoginDialog={handleShowLoginDialog} // Pass down handler for login dialog
+
       />
     )}
 
@@ -374,8 +387,6 @@ function App() {
           {showForm ? <span style={{ fontFamily: 'arial', fontSize: '16px'}}>__</span> : <><FaPlus /></>}
         </button>
       )}
-
-
         <button
           className={`btn ms-3 ${isLoggedIn ? 'btn-danger' : 'btn-secondary'}`}
           onClick={isLoggedIn ? handleLogout : handleLoginClick}
@@ -402,7 +413,6 @@ function App() {
 
       {showCart && <Cart Carthide={Carthide} handleSubmitOrder={handleSubmitOrder} />}
       {selectedProduct && <ProductDetail product={selectedProduct} />}
-
 
       {isAdmin && (
   <iframe
