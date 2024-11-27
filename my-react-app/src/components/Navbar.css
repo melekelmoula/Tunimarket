@@ -22,28 +22,7 @@
 
 .Flag-background{
   background-color: transparent !important;
-
 }
 
-.navbar-light.bg-light {
-  background-color: transparent !important;
-}
 
-.navbar .nav-link {
-  font-size: 17px;
-}
-
-.navbar .form-control {
-  font-size: 16px;
-  margin-top: 20px; /* Adjust the value to your needs */
-
-}
-
-.navbar .badge {
-  font-size: 10px;
-}
-
-.Flag-background {
-  background-color: transparent !important;
-}
 
