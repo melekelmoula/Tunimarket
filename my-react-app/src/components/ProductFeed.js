@@ -46,6 +46,10 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
         <meta name="keywords" content="TuniMarket, Tunisia, online shopping, buy and sell Tunisia, market Tunisia" />
         <meta property="og:title" content="TuniMarket - Buy and Sell in Tunisia" />
         <meta property="og:description" content="The best site to buy and sell in Tunisia. Explore exclusive products on TuniMarket." />
+  {/* Preload images */}
+  {visibleProducts.map((product) => (
+          <link key={product.id} rel="preload" href={product.imageUrl} as="image" />
+        ))}
       </Helmet>
 
       <div className="row mt-4">
@@ -59,6 +63,7 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
                 alt={product.name}
                 className="card-img-top"
                 style={{ height: '200px', objectFit: 'cover' }}
+                loading="lazy"
               />
         <figcaption className="card-body text-center">
         {/* Product name */}
