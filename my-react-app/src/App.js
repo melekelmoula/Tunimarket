@@ -47,8 +47,8 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: productsData } = await axios.get('http://localhost:5000/api/products');
-        const { data: categoriesData } = await axios.get('http://localhost:5000/api/categories');
+        const { data: productsData } = await axios.get('https://tuni-market.vercel.app/api/products');
+        const { data: categoriesData } = await axios.get('https://tuni-market.vercel.app/api/categories');
 
         setProducts(productsData);
         setllProducts(productsData);
@@ -91,7 +91,7 @@ function App() {
       } else {
         // If not found in the current list, fetch it from the server
         axios
-          .get(`http://localhost:5000/api/products/${productId}`)
+          .get(`https://tuni-market.vercel.app/api/products/${productId}`)
           .then((response) => setSelectedProduct(response.data))
           .catch((error) => console.error('Error fetching product:', error));
       }
@@ -135,10 +135,10 @@ function App() {
     Object.entries(formData).forEach(([key, val]) => data.append(key, val));
 
     try {
-      await axios.post('http://localhost:5000/api/products', data, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await axios.post('https://tuni-market.vercel.app/api/products', data, { headers: { 'Content-Type': 'multipart/form-data' } });
       setFormData({ name: '', price: 0, image: null, location: '', stock: 1, category: '', username: '', email: '' });
       setShowForm(false);
-      const { data: updatedProducts } = await axios.get('http://localhost:5000/api/products');
+      const { data: updatedProducts } = await axios.get('https://tuni-market.vercel.app/api/products');
       setProducts(updatedProducts);
     } catch (error) {
       alert(`Error adding product: ${error.response?.data?.message || error.message}`);
@@ -180,7 +180,7 @@ function App() {
     };
 
     try {
-      await axios.post('http://localhost:5000/api/orders', orderDetails);
+      await axios.post('https://tuni-market.vercel.app/api/orders', orderDetails);
       setShowCart(false);
       setCartItems([]); // This will reset the cart to an empty array
       navigate(`/`); 
@@ -277,7 +277,7 @@ function App() {
         const lastCartLists = cartlastproduct.map(item => item.productId);
   
         // Fetch all products from the API
-        const { data: allProducts } = await axios.get('http://localhost:5000/api/products');
+        const { data: allProducts } = await axios.get('https://tuni-market.vercel.app/api/products');
   
         // Create a map of product IDs for faster lookup
         const allProductsMap = new Map(allProducts.map(product => [product.id, product]));
@@ -335,7 +335,7 @@ function App() {
     navigate(`/`); 
 
     try {
-      const { data: favoriteProducts } = await axios.get(`http://localhost:5000/api/getfavorites?email=${userEmail}`);
+      const { data: favoriteProducts } = await axios.get(`https://tuni-market.vercel.app/api/getfavorites?email=${userEmail}`);
       
       if (favoriteProducts.length === 0) {
         // Handle empty favorites case
