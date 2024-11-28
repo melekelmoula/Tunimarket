@@ -93,7 +93,7 @@ const ProductDetail = () => {
   return (
     <article className="product-detail-wrapper">
       <Helmet>
-        <title>{product.name} - MyStore</title>
+        <title>{product.name} - TuniMarket</title>
         <meta name="description" content={`Buy ${product.name} for just ${product.price}TND.`} />
         <meta name="keywords" content={`${product.name}, ${product.category}, buy ${product.name}, ${product.location}, TuniMarket`} />
         <link rel="canonical" href={`https://tuni-market.vercel.app/product/${product.id}`} />
