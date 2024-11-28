@@ -425,7 +425,8 @@ function App() {
   />
 )}
 
-      
+      <SpeedInsights />
+
     </div>
   );
 }
