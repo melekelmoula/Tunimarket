@@ -4,6 +4,7 @@ import App from './App';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './contexts/CartContext';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -13,6 +14,7 @@ root.render(
   <BrowserRouter>
     <LanguageProvider>
       <CartProvider>
+        <SpeedInsights/>
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/product/:productId" element={<App />} />
