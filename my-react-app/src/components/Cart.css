@@ -1,9 +1,4 @@
-/* General Body Styles */
-body {
-  background-color: #f5f5f7; /* Light background color for a clean feel */
-  font-family: 'Arial', sans-serif;
-  color: #333;
-}
+
 
 /* Product Card Styling */
 .card {
@@ -11,6 +6,8 @@ body {
   transition: transform 0.2s, box-shadow 0.2s ease-in-out;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  /*background-color: #555555 !important;*/
+
 }
 
 .card:hover {
@@ -36,7 +33,7 @@ input[type="number"] {
   top: 20px;
   right: 20px;
   width: 400px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
