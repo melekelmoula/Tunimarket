@@ -4,6 +4,7 @@ import { useCart } from '../contexts/CartContext';
 import { useLanguage, translate } from '../contexts/LanguageContext'; 
 import Flag from 'react-world-flags'; 
 import './Navbar.css'; 
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
 
 function Navbar({
   categories, 
@@ -15,6 +16,8 @@ function Navbar({
   onSearch,
   onShowLoginDialog // New prop to handle showing login dialog
 }) {
+  const navigate = useNavigate(); // Initialize the navigate function
+
   const { cartItemCount } = useCart(); 
   const [searchQuery, setSearchQuery] = useState(''); 
   const { language, switchLanguage } = useLanguage(); 
@@ -59,6 +62,7 @@ function Navbar({
                   onClick={(e) => {
                     e.preventDefault(); 
                     setDisplayCategory(displayCategory === cat.name ? '' : cat.name);
+                    navigate(`/category/${cat.name}`);
                   }}
                 >
                   {translate(cat.name, language)}
