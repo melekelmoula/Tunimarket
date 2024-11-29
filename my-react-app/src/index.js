@@ -18,6 +18,7 @@ root.render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/product/:productId" element={<App />} />
+          <Route path="/category/:categoryName" element={<App />} />
         </Routes>
       </CartProvider>
     </LanguageProvider>
