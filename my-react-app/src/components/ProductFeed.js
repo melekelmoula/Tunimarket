@@ -84,7 +84,6 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
                 alt={product.name}
                 className="card-img-top"
                 style={{ height: '200px', objectFit: 'cover' }}
-                loading="lazy" // Improve loading performance
               />
               <figcaption className="card-body text-center">
                 {/* Product name */}
