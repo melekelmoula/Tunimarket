@@ -92,13 +92,41 @@ const ProductDetail = () => {
 
   return (
     <article className="product-detail-wrapper">
-      <Helmet>
+     <Helmet>
         <title>{product.name} - TuniMarket</title>
-        <meta name="description" content={`Buy ${product.name} for just ${product.price}TND.`} />
-        <meta name="keywords" content={`${product.name}, ${product.category}, buy ${product.name}, ${product.location}, TuniMarket`} />
-        <link rel="canonical" href={`https://tuni-market.vercel.app/product/${product.id}`} />
+        <meta name="description" content={`Buy ${product.name} for just ${product.price} TND. ${product.description}`} />
+        <meta name="keywords" content={`${product.name}, ${product.category}, buy ${product.name}, ${product.location}, TuniMarket, Tunisia, online shopping`} />
+        <meta property="og:title" content={`${product.name} - TuniMarket`} />
+        <meta property="og:description" content={`Buy ${product.name} for just ${product.price} TND. ${product.description}`} />
+        <meta property="og:image" content={product.imageUrl} />
+        <meta property="og:url" content={`https://tunimarket.vercel.app/product/${product.id}`} />
+        <meta property="og:type" content="product" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={`https://tunimarket.vercel.app/product/${product.id}`} />
         <link rel="preload" href={product.imageUrl} as="image" />
-
+        
+        {/* Structured Data (JSON-LD) for product */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": "${product.name}",
+              "image": "${product.imageUrl}",
+              "description": "${product.description}",
+              "brand": "TuniMarket",
+              "sku": "${product.id}",
+              "offers": {
+                "@type": "Offer",
+                "url": "https://tunimarket.vercel.app/product/${product.id}",
+                "priceCurrency": "TND",
+                "price": "${product.price}",
+                "priceValidUntil": "2024-12-31",
+                "availability": "https://schema.org/InStock"
+              }
+            }
+          `}
+        </script>
       </Helmet>
 
       <div className="container mt-3">
