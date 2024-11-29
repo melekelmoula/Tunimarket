@@ -41,27 +41,31 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
         <link rel="canonical" href={`https://tunimarket.vercel.app`} />
         <link rel="preload" href="/assets/fonts/your-font.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
-        {/* Structured data (JSON-LD) for product listings */}
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "Product",
-              "name": "TuniMarket - Marketplace Products",
-              "image": "${visibleProducts[0]?.imageUrl}",
-              "description": "Browse top products on TuniMarket.",
-              "brand": "TuniMarket",
-              "offers": {
-                "@type": "Offer",
-                "url": "https://tunimarket.vercel.app",
-                "priceCurrency": "TND",
-                "price": "${visibleProducts[0]?.price}",
-                "priceValidUntil": "2024-12-31",
-                "availability": "https://schema.org/InStock"
-              }
-            }
-          `}
-        </script>
+       {/* Structured data (JSON-LD) for product listings */}
+<script type="application/ld+json">
+  {`
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "TuniMarket - Marketplace Products",
+      "description": "Browse top products on TuniMarket.",
+      "brand": "TuniMarket",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://tunimarket.vercel.app/product/1JsA6Gp37F0JOoXZgY8P",  // Replace with dynamic product URL
+        "priceCurrency": "TND",
+        "price": "100",  // Replace with dynamic price
+        "priceValidUntil": "2024-12-31",
+        "availability": "https://schema.org/InStock",
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "url": "https://tunimarket.vercel.app/returns"  // Replace with your return policy URL
+        }
+      }
+    }
+  `}
+</script>
+
 
         {/* Preload images */}
         {visibleProducts.map((product) => (
