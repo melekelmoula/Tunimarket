@@ -84,6 +84,11 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
                 alt={product.name}
                 className="card-img-top"
                 style={{ height: '200px', objectFit: 'cover' }}
+          loading="eager" // Use eager loading for better LCP
+ width="300" // Add width and height for LCP optimization
+          height="200"
+                      sizes="(max-width: 768px) 100vw, 33vw" // Responsive image size
+
               />
               <figcaption className="card-body text-center">
                 {/* Product name */}
