@@ -1,4 +1,3 @@
-//my-react-app\public\robots.txt
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
