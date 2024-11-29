@@ -39,6 +39,7 @@ function App() {
   const navigate = useNavigate(); // Initialize the navigate function
   const location = useLocation();
   const [currentSelectedProduct, setCurrentSelectedProduct] = useState(null); // global in the component scope
+  const [selectedCategory, setSelectedCategory] = useState(null); // For storing selected category
 
   const { clearCart } = useCart();
 
@@ -47,18 +48,48 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch categories and products
         const { data: categoriesData } = await axios.get('https://tuni-market.vercel.app/api/categories');
         const { data: productsData } = await axios.get('https://tuni-market.vercel.app/api/products');
-
         setProducts(productsData);
         setllProducts(productsData);
-
         setCategories(categoriesData);
+  
+        // Fetch the sitemap.xml to check the lastmod date of the first URL
+        const response = await axios.get('https://tunimarket.vercel.app/sitemap.xml');
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(response.data, "application/xml");
+        const lastmod = xmlDoc.getElementsByTagName("lastmod")[0]?.textContent;
+  
+        if (!lastmod) {
+          // If no lastmod is found, generate a new sitemap
+          await axios.post('https://tuni-market.vercel.app/api/generate-sitemap', {
+            products: productsData,
+            categories: categoriesData,
+          });
+          console.log('Sitemap generated because no lastmod was found.');
+        } else {
+          const lastmodDate = new Date(lastmod);
+          const currentDate = new Date();
+  
+          // Compare the month and year of lastmod with the current date
+          if (lastmodDate.getMonth() !== currentDate.getMonth() || lastmodDate.getFullYear() !== currentDate.getFullYear()) {
+            // If they are different, generate a new sitemap
+            await axios.post('https://tuni-market.vercel.app/api/generate-sitemap', {
+              products: productsData,
+              categories: categoriesData,
+            });
+            console.log('Sitemap generated because lastmod is outdated.');
+          } else {
+            console.log('Sitemap is already up-to-date.');
+          }
+        }
+  
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
+  
     if (!isAdmin) {
       fetchData();
     }
@@ -97,6 +128,20 @@ function App() {
       }
     }
   }, [location.pathname, products]);
+
+  // Listen to changes in URL
+useEffect(() => {
+  const match = location.pathname.match(/\/category\/([^/]+)/);
+  if (match && match[1]) {
+    const categoryName = match[1];
+    setSelectedCategory(categoryName);
+    setDisplayCategory(categoryName);
+  } else {
+    setSelectedCategory(null);
+    setDisplayCategory('');
+  }
+}, [location.pathname]);
+
   
   
   //my-react-app\src\App.js
