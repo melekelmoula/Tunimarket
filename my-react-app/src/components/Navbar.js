@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FaShoppingCart, FaHome, FaHeart } from 'react-icons/fa'; 
 import { useCart } from '../contexts/CartContext'; 
 import { useLanguage, translate } from '../contexts/LanguageContext'; 
-import Flag from 'react-world-flags'; 
 import './Navbar.css'; 
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
 
@@ -96,11 +95,17 @@ function Navbar({
             />
           </form>
 
-          <span>
-            <button onClick={() => switchLanguage(language === 'en' ? 'fr' : 'en')} className="Flag-background">
-              <Flag code={language === 'en' ? 'FR' : 'GB'} alt="language flag" width="24" height="16" />
-            </button>
-          </span>
+<span>
+  <select
+    value={language}
+    onChange={(e) => switchLanguage(e.target.value)}
+    className="form-select"
+  >
+    <option value="en">English</option>
+    <option value="fr">Francais</option>
+  </select>
+</span>
+
         </div>
       </div>
     </nav>
