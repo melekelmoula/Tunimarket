@@ -92,42 +92,44 @@ const ProductDetail = () => {
 
   return (
     <article className="product-detail-wrapper">
-     <Helmet>
-        <title>{product.name} - TuniMarket</title>
-        <meta name="description" content={`Buy ${product.name} for just ${product.price} TND. ${product.description}`} />
-        <meta name="keywords" content={`${product.name}, ${product.category}, buy ${product.name}, ${product.location}, TuniMarket, Tunisia, online shopping`} />
-        <meta property="og:title" content={`${product.name} - TuniMarket`} />
-        <meta property="og:description" content={`Buy ${product.name} for just ${product.price} TND. ${product.description}`} />
-        <meta property="og:image" content={product.imageUrl} />
-        <meta property="og:url" content={`https://tunimarket.vercel.app/product/${product.id}`} />
-        <meta property="og:type" content="product" />
-        <meta name="robots" content="index, follow" />
+      <Helmet>
+        <title>TuniMarket - {product.name}</title>
+        <meta name="description" content={`Buy ${product.name} for just ${product.price} DT.`} />
+        <meta name="keywords" content={`${product.name}, ${product.category}, buy ${product.name}, ${product.location}, TuniMarket`} />
         <link rel="canonical" href={`https://tunimarket.vercel.app/product/${product.id}`} />
         <link rel="preload" href={product.imageUrl} as="image" />
-        
-        {/* Structured Data (JSON-LD) for product */}
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "Product",
-              "name": "${product.name}",
-              "image": "${product.imageUrl}",
-              "description": "${product.description}",
-              "brand": "TuniMarket",
-              "sku": "${product.id}",
-              "offers": {
-                "@type": "Offer",
-                "url": "https://tunimarket.vercel.app/product/${product.id}",
-                "priceCurrency": "TND",
-                "price": "${product.price}",
-                "priceValidUntil": "2024-12-31",
-                "availability": "https://schema.org/InStock"
-              }
-            }
-          `}
-        </script>
-      </Helmet>
+        <meta property="og:url" content={`https://tunimarket.vercel.app/product/${product.id}`} />
+        <meta property="og:type" content="product" />
+
+     {/* Structured Data for Product */}
+    <script type="application/ld+json">
+      {`
+        {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": "${product.name}",
+          "image": "${product.imageUrl}",
+          "description": "Buy ${product.name} for just ${product.price} DT.",
+          "sku": "${product.id}",
+          "brand": "TuniMarket",
+          "offers": {
+            "@type": "Offer",
+            "url": "https://tunimarket.vercel.app/product/${product.id}",
+            "priceCurrency": "DT",
+            "price": "${product.price}",
+            "itemCondition": "https://schema.org/NewCondition",
+            "availability": "https://schema.org/InStock"
+          },
+          "category": "${product.category}",
+          "location": "${product.location}",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://tunimarket.vercel.app/product/${product.id}"
+          }
+        }
+      `}
+    </script>
+  </Helmet>
 
       <div className="container mt-3">
         <div className="row mt-4">
@@ -139,7 +141,7 @@ const ProductDetail = () => {
           {/* Product Details Section */}
           <section className="col-md-6">
             <h1>{product.name}</h1>
-            <p><strong>{translate('price', language)}:</strong> {product.price}TND</p>
+            <p><strong>{translate('price', language)}:</strong> {product.price} DT</p>
             <p><strong>{translate('category', language)}:</strong> {translate(product.category, language)}</p>
             <p><strong>{translate('location', language)}:</strong> {product.location}</p>
             <p><strong>{translate('stock', language)}:</strong> {product.stock}</p>
