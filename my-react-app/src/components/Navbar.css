@@ -26,3 +26,8 @@
 button.nav-link {
   padding: 0;
 }
+
+button.nav-link:focus, 
+button.nav-link:hover {
+  transform: none;
+}
