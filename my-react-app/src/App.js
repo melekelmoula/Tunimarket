@@ -55,7 +55,7 @@ function App() {
         setCategories(categoriesData);
   
         // Fetch the sitemap.xml to check the lastmod date of the first URL
-        const response = await axios.get('http://localhost:3000/sitemap.xml');
+        const response = await axios.get('https://tuni-market.vercel.app/sitemap.xml');
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(response.data, "application/xml");
         const lastmod = xmlDoc.getElementsByTagName("lastmod")[0]?.textContent;
