@@ -11,7 +11,7 @@ import LoginForm from './components/Login';
 import ProductDetail from './components/ProductDetail';
 import { useCart } from './contexts/CartContext'; 
 import { useLanguage, translate } from './contexts/LanguageContext'; // Import useLanguage and translate
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-do
 import { useLocation } from 'react-router-dom';
 //
 function App() {
