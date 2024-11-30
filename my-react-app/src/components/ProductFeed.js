@@ -73,21 +73,23 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
         ))}
       </Helmet>
 
-      <div className="row mt-4">
+          <div className="row mt-4">
         {/* Mapping over filtered and visible products */}
         {visibleProducts.map((product) => (
           <article key={product.id} className="col-md-4 mb-4" onClick={() => handleProductClick(product)}>
             <figure className="card h-100 shadow-sm">
               {/* Product image */}
               <img
-                 src={product.imageUrl}
-          alt={product.name}
-          className="card-img-top"
-          loading={index < 3 ? "eager" : "lazy"} // Prioritize first 3 images for LCP
-          width="300" // Fixed width for LCP optimization
+                src={product.imageUrl}
+                alt={product.name}
+                className="card-img-top"
+                style={{ objectFit: 'cover' }}
+                loading="eager" // Improve loading performance
+                  width="300" // Fixed width for LCP optimization
           height="200" // Fixed height for LCP optimization
           sizes="(max-width: 768px) 100vw, 33vw" // Responsive image size
           style={{ objectFit: 'cover' }} // Keep only these styles
+priority 
               />
               <figcaption className="card-body text-center">
                 {/* Product name */}
