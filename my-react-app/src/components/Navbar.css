@@ -1,33 +1,27 @@
-/* Navbar.css */
 .navbar-light.bg-light {
   background-color: transparent !important;
 }
 
-/* Target navbar links and increase font size */
 .navbar .nav-link {
-  font-size: 17px; /* Adjust the size to your preference */
+  font-size: 17px; 
 }
 
-/* If you want to increase the text size of the search input and placeholder */
 .navbar .form-control {
-  font-size: 16px; /* Adjust to your preference */
-  margin-top: 10%; /* Adjust to lower the input slightly */
+  font-size: 16px; 
+  margin-top: 10%;
 }
 
-/* Adjust the size of cart item count */
 .navbar .badge {
-  font-size: 10px; /* Adjust to your preference */
+  font-size: 10px; 
 }
 
 .Flag-background{
   background-color: transparent !important;
 }
 
-/* Remove default button styles */
 .navbar .nav-link {
   background-color: transparent;
 }
-
 
 button.nav-link {
   padding: 0;
