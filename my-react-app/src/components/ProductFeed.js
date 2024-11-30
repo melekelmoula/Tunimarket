@@ -41,31 +41,30 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
         <link rel="canonical" href={`https://tunimarket.vercel.app`} />
         <link rel="preload" href="/assets/fonts/your-font.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
-       {/* Structured data (JSON-LD) for product listings */}
-<script type="application/ld+json">
-  {`
-    {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": "TuniMarket - Marketplace Products",
-      "description": "Browse top products on TuniMarket.",
-      "brand": "TuniMarket",
-      "offers": {
-        "@type": "Offer",
-        "url": "https://tunimarket.vercel.app/product/1JsA6Gp37F0JOoXZgY8P",  // Replace with dynamic product URL
-        "priceCurrency": "TND",
-        "price": "100",  // Replace with dynamic price
-        "priceValidUntil": "2024-12-31",
-        "availability": "https://schema.org/InStock",
-        "hasMerchantReturnPolicy": {
-          "@type": "MerchantReturnPolicy",
-          "url": "https://tunimarket.vercel.app/returns"  // Replace with your return policy URL
-        }
-      }
-    }
-  `}
-</script>
-
+        {/* Structured data (JSON-LD) for product listings */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": "TuniMarket - Marketplace Products",
+              "description": "Browse top products on TuniMarket.",
+              "brand": "TuniMarket",
+              "offers": {
+                "@type": "Offer",
+                "url": "https://tunimarket.vercel.app/product/1JsA6Gp37F0JOoXZgY8P",  // Replace with dynamic product URL
+                "priceCurrency": "TND",
+                "price": "100",  // Replace with dynamic price
+                "priceValidUntil": "2024-12-31",
+                "availability": "https://schema.org/InStock",
+                "hasMerchantReturnPolicy": {
+                  "@type": "MerchantReturnPolicy",
+                  "url": "https://tunimarket.vercel.app/returns"  // Replace with your return policy URL
+                }
+              }
+            }
+          `}
+        </script>
 
         {/* Preload images */}
         {visibleProducts.map((product) => (
@@ -73,23 +72,22 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
         ))}
       </Helmet>
 
-          <div className="row mt-4">
+      <div className="row mt-4">
         {/* Mapping over filtered and visible products */}
         {visibleProducts.map((product) => (
-          <article key={product.id} className="col-md-4 mb-4" onClick={() => handleProductClick(product)}>
+          <article key={product.id} className="col-md-3 col-sm-6 mb-4" onClick={() => handleProductClick(product)}>
             <figure className="card h-100 shadow-sm">
               {/* Product image */}
               <img
                 src={product.imageUrl}
                 alt={product.name}
                 className="card-img-top"
-                style={{ objectFit: 'cover' }}
                 loading="eager" // Improve loading performance
-                  width="300" // Fixed width for LCP optimization
-          height="200" // Fixed height for LCP optimization
-          sizes="(max-width: 768px) 100vw, 33vw" // Responsive image size
-          style={{ objectFit: 'cover' }} // Keep only these styles
-priority 
+                width="250" // Adjusted width for smaller card
+                height="180" // Adjusted height for smaller card
+                sizes="(max-width: 768px) 100vw, 33vw" // Responsive image size
+                style={{ objectFit: 'cover' }} // Keep only these styles
+                priority 
               />
               <figcaption className="card-body text-center">
                 {/* Product name */}
