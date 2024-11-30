@@ -54,7 +54,7 @@ function App() {
         setllProducts(productsData);
         setCategories(categoriesData);
   
-        // Fetch the sitemap.xml to check the lastmod date of the first UR
+        // Fetch the sitemap.xml to check the lastmod date of the first URl
         const response = await axios.get('https://tunimarket.vercel.app/sitemap.xml');
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(response.data, "application/xml");
