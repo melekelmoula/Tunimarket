@@ -91,7 +91,6 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
         <meta property="og:url" content={currentUrl}/>
         <meta property="og:type" content="website"/>
         <link rel="canonical" href={currentUrl} />
-        <link rel="preload" href="/assets/fonts/your-font.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
      {/* Structured data (JSON-LD) for product listings */}
      <script type="application/ld+json">
