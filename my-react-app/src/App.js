@@ -13,7 +13,7 @@ import { useCart } from './contexts/CartContext';
 import { useLanguage, translate } from './contexts/LanguageContext'; // Import useLanguage and translate
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
 import { useLocation } from 'react-router-dom';
-
+//
 function App() {
   const [formData, setFormData] = useState({ name: '', price: 0, image: null, location: '', stock: 1, category: '', username: '', email: '' });
   const [products, setProducts] = useState([]);
