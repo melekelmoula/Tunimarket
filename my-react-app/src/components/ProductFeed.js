@@ -80,15 +80,16 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
             <figure className="card h-100 shadow-sm">
               {/* Product image */}
               <img
-                src={product.imageUrl}
-                alt={product.name}
-                className="card-img-top"
-  style={{ objectFit: 'cover' }} // Keep only these styles
-          loading="eager" // Use eager loading for better LCP
- width="300" // Add width and height for LCP optimization
-          height="200"
-                      sizes="(max-width: 768px) 100vw, 33vw" // Responsive image size
-
+                 src={product.imageUrl}
+          alt={product.name}
+          className="card-img-top"
+          loading={index < 3 ? "eager" : "lazy"} // Prioritize first 3 images for LCP
+          width="300" // Fixed width for LCP optimization
+          height="200" // Fixed height for LCP optimization
+          sizes="(max-width: 768px) 100vw, 33vw" // Responsive image size
+          style={{ objectFit: 'cover' }} // Keep only these styles
+          // Add priority for the first 3 images to speed up loading
+          priority={index < 3 ? true : false} 
               />
               <figcaption className="card-body text-center">
                 {/* Product name */}
