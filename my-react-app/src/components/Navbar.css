@@ -1,27 +1,25 @@
+/* Navbar.css */
 .navbar-light.bg-light {
   background-color: transparent !important;
 }
 
+/* Target navbar links and increase font size */
 .navbar .nav-link {
-  font-size: 17px; 
+  font-size: 17px; /* Adjust the size to your preference */
 }
 
-.navbar .form-control {
-  font-size: 16px; 
-  margin-top: 10%;
-}
 
+
+/* Adjust the size of cart item count */
 .navbar .badge {
-  font-size: 10px; 
+  font-size: 10px; /* Adjust to your preference */
 }
 
-.Flag-background{
-  background-color: transparent !important;
-}
-
+/* Remove default button styles */
 .navbar .nav-link {
   background-color: transparent;
 }
+
 
 button.nav-link {
   padding: 0;
@@ -30,4 +28,8 @@ button.nav-link {
 button.nav-link:focus, 
 button.nav-link:hover {
   transform: none;
+}
+
+.form-select {
+  margin-left: 10px; /* Space it out from the search bar */
 }
