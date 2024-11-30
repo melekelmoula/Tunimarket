@@ -60,13 +60,7 @@ h2 {
   background-color: #5a6268;
 }
 
-/* Product Feed Container */
-.product-feed {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  margin-top: 2rem;
-}
+
 
 
 
