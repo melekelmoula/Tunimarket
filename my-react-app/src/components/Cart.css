@@ -1,25 +1,6 @@
 
 
-/* Product Card Styling */
-.card {
-  border-radius: 12px;
-  transition: transform 0.2s, box-shadow 0.2s ease-in-out;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  /*background-color: #555555 !important;*/
 
-}
-
-.card:hover {
-  transform: translateY(-5px); /* Lifting effect on hover */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow enhancement */
-}
-.card-img-top {
-  border-radius: 12px;
-  max-height: 200px;
-  object-fit: cover;
-  margin-bottom: 10px;
-}
 
 /* Quantity Input Styling */
 input[type="number"] {
