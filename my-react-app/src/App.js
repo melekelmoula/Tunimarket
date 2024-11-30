@@ -4,7 +4,6 @@ import axios from 'axios';
 import AddProductForm from './components/AddProductForm';
 import Navbar from './components/Navbar';
 import ProductFeed from './components/ProductFeed';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaSignInAlt, FaSignOutAlt, FaPlus } from 'react-icons/fa';
 import './App.css';
 import Cart from './components/Cart';
