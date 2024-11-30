@@ -32,8 +32,8 @@ const ProductDetail = () => {
   }, [productId]);
 
   // useEffect to check cart and favorites when product and cartItems are available
-  useEffect(() => {
-    if (product && cartItems) {
+useEffect(() => {
+    if (product && cartItems && window.localStorage.getItem('email')!=null) {
       onFavoriteCheck(); // Check if product is in favorites
       checkIfInCart(); // Check if product is in the cart
     }
