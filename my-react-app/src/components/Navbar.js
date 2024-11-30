@@ -97,7 +97,7 @@ function Navbar({
               onChange={handleSearchChange} 
             />
           </form>
-<br></br>
+          <br></br>
           <br></br>
           <br></br>
 
