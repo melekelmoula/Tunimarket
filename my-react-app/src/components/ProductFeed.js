@@ -75,38 +75,31 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
 
           <div className="row mt-4">
         {/* Mapping over filtered and visible products */}
-       {/* Preload images */}
-{visibleProducts.map((product) => (
-  <link key={product.id} rel="preload" href={product.imageUrl} as="image" />
-))}
-
-<div className="row mt-4">
-  {/* Mapping over filtered and visible products */}
-  {visibleProducts.map((product) => (
-    <article key={product.id} className="col-md-6 col-sm-12 mb-3" onClick={() => handleProductClick(product)}>
-      <figure className="card h-100 shadow-sm">
-        {/* Product image */}
-        <img
-          src={product.imageUrl}
-          alt={product.name}
-          className="card-img-top"
-          style={{ objectFit: 'cover' }}
-          loading="eager" // Improve loading performance
-          width="250" // Reduced width for smaller image
-          height="150" // Reduced height for smaller image
-          sizes="(max-width: 768px) 100vw, 50vw" // Adjust for responsiveness
-          priority
-        />
-        <figcaption className="card-body text-center">
-          {/* Product name */}
-          <h5 className="card-title">{product.name}</h5>
-          <h7 className="card-title">{product.price + ' TND'}</h7>
-        </figcaption>
-      </figure>
-    </article>
-  ))}
-</div>
-
+        {visibleProducts.map((product) => (
+          <article key={product.id} className="col-md-4 mb-4" onClick={() => handleProductClick(product)}>
+            <figure className="card h-100 shadow-sm">
+              {/* Product image */}
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                className="card-img-top"
+                style={{ objectFit: 'cover' }}
+                loading="eager" // Improve loading performance
+                  width="300" // Fixed width for LCP optimization
+          height="200" // Fixed height for LCP optimization
+          sizes="(max-width: 768px) 100vw, 33vw" // Responsive image size
+          style={{ objectFit: 'cover' }} // Keep only these styles
+priority 
+              />
+              <figcaption className="card-body text-center">
+                {/* Product name */}
+                <h5 className="card-title">{product.name}</h5>
+                <h7 className="card-title">{product.price + ' TND'}</h7>
+              </figcaption>
+            </figure>
+          </article>
+        ))}
+      </div>
     </div>
   );
 }
