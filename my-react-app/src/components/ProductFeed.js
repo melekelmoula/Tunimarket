@@ -88,8 +88,6 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
           height="200" // Fixed height for LCP optimization
           sizes="(max-width: 768px) 100vw, 33vw" // Responsive image size
           style={{ objectFit: 'cover' }} // Keep only these styles
-          // Add priority for the first 3 images to speed up loading
-          priority={index < 3 ? true : false} 
               />
               <figcaption className="card-body text-center">
                 {/* Product name */}
