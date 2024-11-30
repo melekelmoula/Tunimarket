@@ -95,11 +95,15 @@ function Navbar({
             />
           </form>
 
-<span>
+
+          <span>
+  <label htmlFor="language-select" className="sr-only">Lang</label>
   <select
+    id="language-select"
     value={language}
     onChange={(e) => switchLanguage(e.target.value)}
     className="form-select"
+    aria-label="Language" // Accessible label for screen readers
   >
     <option value="en">English</option>
     <option value="fr">Francais</option>
