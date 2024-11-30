@@ -12,7 +12,6 @@
 .navbar .form-control {
   font-size: 16px; /* Adjust to your preference */
   margin-top: 10%; /* Adjust to lower the input slightly */
-
 }
 
 /* Adjust the size of cart item count */
@@ -24,5 +23,17 @@
   background-color: transparent !important;
 }
 
+/* Remove default button styles */
+.navbar .nav-link {
+  background-color: transparent;
+}
 
 
+button.nav-link {
+  padding: 0;
+}
+
+button.nav-link:focus, 
+button.nav-link:hover {
+  transform: none;
+}
