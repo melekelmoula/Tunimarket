@@ -45,7 +45,7 @@ function App() {
 
   const [allproducts, setllProducts] = useState([]);
 
-  useEffect(() => {
+   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch categories and products
@@ -56,11 +56,11 @@ function App() {
         setCategories(categoriesData);
   
         // Fetch the sitemap.xml to check the lastmod date of the first URL
-        const response = await axios.get('https://tunimarket.vercel.app/sitemap.xml');
+        const response = await axios.get('http://localhost:3000/sitemap.xml');
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(response.data, "application/xml");
         const lastmod = xmlDoc.getElementsByTagName("lastmod")[0]?.textContent;
-  
+
         if (!lastmod) {
           // If no lastmod is found, generate a new sitemap
           await axios.post('https://tuni-market.vercel.app/api/generate-sitemap', {
@@ -71,9 +71,28 @@ function App() {
         } else {
           const lastmodDate = new Date(lastmod);
           const currentDate = new Date();
-  
+          /*
+          const formattedCurrentDate = currentDate.toLocaleDateString('en-GB', {
+            year: '2-digit',
+            month: 'short',
+            day: '2-digit'
+          }).replace(',', '');
+          
+          const formattedLastmodDate = lastmodDate.toLocaleDateString('en-GB', {
+            year: '2-digit',
+            month: 'short',
+            day: '2-digit'
+          }).replace(',', '');
+          
+          alert(`Lastmod found: ${formattedCurrentDate}`); //Lastmod2 found 30 nov 24  
+          alert(`Lastmod2 found: ${formattedLastmodDate}`); //Lastmod2 found 29 oct 24 
+          */
+          // Get the difference in milliseconds between the two dates
+          const diffTime = Math.abs(currentDate - lastmodDate);
+          const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+          //alert (diffDays)
           // Compare the month and year of lastmod with the current date
-          if (lastmodDate.getMonth() !== currentDate.getMonth() || lastmodDate.getFullYear() !== currentDate.getFullYear()) {
+          if (diffDays>12) {
             // If they are different, generate a new sitemap
             await axios.post('https://tuni-market.vercel.app/api/generate-sitemap', {
               products: productsData,
