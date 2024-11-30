@@ -97,7 +97,9 @@ function Navbar({
               onChange={handleSearchChange} 
             />
           </form>
-
+<br></br>
+          <br></br>
+          <br></br>
 
           <span>
   <label htmlFor="language-select" className="sr-only">Lang</label>
