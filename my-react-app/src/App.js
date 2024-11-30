@@ -447,13 +447,16 @@ useEffect(() => {
 <div className="d-flex mt-3">
       {/* Conditionally render the Add Product button for non-admin users */}
       {!isAdmin && (
-        <button className="btn btn-primary" onClick={handleAddProductClick}>
+        <button className="btn btn-primary" onClick={handleAddProductClick}
+              aria-label="Add Product" // Add this line for accessibility
+        >
           {showForm ? <span style={{ fontFamily: 'arial', fontSize: '16px'}}>__</span> : <><FaPlus /></>}
         </button>
       )}
         <button
           className={`btn ms-3 ${isLoggedIn ? 'btn-danger' : 'btn-secondary'}`}
           onClick={isLoggedIn ? handleLogout : handleLoginClick}
+             aria-label={isLoggedIn ? "Logout" : "Login"}
         >
           {isLoggedIn ? <FaSignOutAlt /> : <FaSignInAlt />}
         </button>
