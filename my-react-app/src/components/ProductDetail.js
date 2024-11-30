@@ -32,24 +32,36 @@ const ProductDetail = () => {
   }, [productId]);
 
   // useEffect to check cart and favorites when product and cartItems are available
-useEffect(() => {
-    if (product && cartItems && window.localStorage.getItem('email')!=null) {
+  useEffect(() => {
+    if (product && cartItems) {
       onFavoriteCheck(); // Check if product is in favorites
       checkIfInCart(); // Check if product is in the cart
     }
   }, [product, cartItems]); // Run whenever product or cartItems change
 
   // Check if the product is in favorites
+  // Check if the product is in favorites
   const onFavoriteCheck = async () => {
-    const userEmail = window.localStorage.getItem('email'); // Get user email from localStorage
-    try {
-      const { data: favoriteProducts } = await axios.get(`https://tuni-market.vercel.app/api/getfavorites?email=${userEmail}`);
-      const isFavoriteProduct = favoriteProducts.some(favorite => favorite.id === product.id);
-      setIsFavorite(isFavoriteProduct); // Update favorite status
-    } catch (error) {
-      console.error('Error fetching favorites:', error);
-    }
-  };
+  const userEmail = window.localStorage.getItem('email'); // Get user email from localStorage
+  if (!userEmail) {
+    // Skip API call if user is not logged in
+    console.warn('User not logged in, skipping favorites check');
+    return;
+  }
+
+  try {
+    const { data: favoriteProducts } = await axios.get(
+      `https://tuni-market.vercel.app/api/getfavorites?email=${userEmail}`
+    );
+    const isFavoriteProduct = favoriteProducts.some(
+      (favorite) => favorite.id === product.id
+    );
+    setIsFavorite(isFavoriteProduct); // Update favorite status
+  } catch (error) {
+    console.error('Error fetching favorites:', error);
+  }
+};
+
 
   // Check if the product is already in the cart
   const checkIfInCart = () => {
