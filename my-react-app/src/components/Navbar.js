@@ -49,7 +49,10 @@ function Navbar({
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item ms-3">
-              <button className="nav-link" onClick={onHomeClick}>
+              <button className="nav-link" onClick={onHomeClick}
+                  aria-label="Go to Home Page" // Add this line for accessibility
+
+    >
                 <FaHome /> 
               </button>
             </li>
