@@ -87,7 +87,11 @@ function Navbar({
             )}
           </ul>
 
-       
+          <img 
+          src="https://tunimarket.vercel.app/Badge.png" 
+          alt="Logo" 
+          className="logo" 
+          />
             
           <form className="d-flex ms-auto">
             <input
