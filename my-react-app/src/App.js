@@ -423,11 +423,7 @@ useEffect(() => {
   return (
     
     <div className="container mt-5">
-         {username && (
-  <h6 className="text-end">
-  {translate('welcome', language)}, {isAdmin ? `admin ${username}` : username}!
-        </h6>
-      )}
+         
 
 {!isAdmin && (
       <Navbar 
@@ -442,7 +438,11 @@ useEffect(() => {
 
       />
     )}
-
+{username && (
+  <h6 className="text-end">
+  {translate('welcome', language)}, {isAdmin ? `admin ${username}` : username}!
+        </h6>
+      )}
 
 <div className="d-flex mt-1">
       {/* Conditionally render the Add Product button for non-admin users */}
