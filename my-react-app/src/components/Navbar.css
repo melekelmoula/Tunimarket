@@ -8,8 +8,6 @@
   font-size: 17px; /* Adjust the size to your preference */
 }
 
-
-
 /* Adjust the size of cart item count */
 .navbar .badge {
   font-size: 10px; /* Adjust to your preference */
@@ -39,4 +37,12 @@ button.nav-link:hover {
   height: 1px;
   margin: -1px;
   overflow: hidden;
+}
+
+.logo {
+  position: fixed; /* Fixes the logo in place */
+  left: 50%; /* Centers it horizontally */
+  transform: translateX(-50%); /* Ensures it's perfectly centered */
+  width: 270px;
+  height: auto;
 }
