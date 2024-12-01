@@ -129,17 +129,11 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
             <figure className="card h-100 shadow-sm">
               {/* Product image */}
               <img
-               priority="true"
-
+               loading="lazy" // Improve loading performance
                src={product.imageUrl}
                alt={product.name}
                className="card-img-top"
-               style={{ objectFit: 'cover' }}
-               loading="eager" // Improve loading performance
-               width="300" // Fixed width for LCP optimization
-               height="200" // Fixed height for LCP optimization
-               sizes="(max-width: 768px) 100vw, 33vw" // Responsive image size
- 
+               style={{ height: '200px', objectFit: 'cover' }}
               />
               <figcaption className="card-body text-center">
                 {/* Product name */}
