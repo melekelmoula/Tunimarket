@@ -87,6 +87,13 @@ function Navbar({
             )}
           </ul>
 
+             <img 
+          src="https://tunimarket.vercel.app/Badge.png" 
+          alt="Logo" 
+          className="logo" 
+          style={{ width: '240px', height: 'auto', display: 'inline-block', marginLeft: 'auto', marginRight: '5%' }} 
+          />
+            
           <form className="d-flex ms-auto">
             <input
               type="text"
