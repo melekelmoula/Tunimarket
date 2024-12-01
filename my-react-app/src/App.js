@@ -444,7 +444,7 @@ useEffect(() => {
     )}
 
 
-<div className="d-flex mt-3">
+<div className="d-flex mt-1">
       {/* Conditionally render the Add Product button for non-admin users */}
       {!isAdmin && (
         <button className="btn btn-primary" onClick={handleAddProductClick}
