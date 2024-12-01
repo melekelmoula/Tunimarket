@@ -423,10 +423,10 @@ useEffect(() => {
   return (
     
     <div className="container mt-5">
-      {username && (
-        <h3 className="text-center">
-            {translate('welcome', language)}, {isAdmin ? `admin ${username}` : username}!
-        </h3>
+         {username && (
+  <h6 className="text-end">
+  {translate('welcome', language)}, {isAdmin ? `admin ${username}` : username}!
+        </h6>
       )}
 
 {!isAdmin && (
