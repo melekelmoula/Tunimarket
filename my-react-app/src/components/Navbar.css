@@ -40,9 +40,10 @@ button.nav-link:hover {
 }
 
 .logo {
-  position: fixed; /* Fixes the logo in place */
+  position: absolute; /* Fixes the logo in place */
   left: 50%; /* Centers it horizontally */
   transform: translateX(-50%); /* Ensures it's perfectly centered */
-  width: 270px;
+  width: 240px;
   height: auto;
+  z-index: 10; /* Makes sure it stays on top of other elements */
 }
