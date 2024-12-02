@@ -64,7 +64,7 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
       return categories[category.toLowerCase()];  // Matches categories like 'Clothes', 'Autoparts', 'Technology'
     }
   
-    return 'Discover the best deals for buying and selling on TuniMarket, the online marketplace of Tunisia.'; // Default description for homepage or invalid category
+    return 'Explore TuniMarket: Tunisia’s Leading Online Marketplace for Buying and Selling Clothes, Auto Parts, and Technology – Your Trusted Destination for Seamless Buying and Selling!'; // Default description for homepage or invalid category
   };
 
   const getCategoryKeywords = () => {
