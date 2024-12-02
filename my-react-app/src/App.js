@@ -299,7 +299,6 @@ useEffect(() => {
     setShowCart(false);
     setShowForm(false);
     setShowLoginForm(false);
-    document.title = "Achetez et Vendez en Ligne en Tunisie | Marketplace TuniMarket"; // Set the title dynamically
     navigate(`/`); 
 
   };
