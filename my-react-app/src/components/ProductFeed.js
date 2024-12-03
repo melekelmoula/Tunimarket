@@ -64,7 +64,7 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
       return categories[category.toLowerCase()];  // Matches categories like 'Clothes', 'Autoparts', 'Technology'
     }
   
-    return 'Explore TuniMarket: Tunisia’s Leading Online Marketplace for Buying and Selling Clothes, Auto Parts, and Technology – Your Trusted Destination for Seamless Buying and Selling!'; // Default description for homepage or invalid category
+    return 'Discover the best deals for buying and selling on TuniMarket, the online marketplace of Tunisia.'; // Default description for homepage or invalid category
   };
 
   const getCategoryKeywords = () => {
@@ -94,26 +94,24 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
 
      {/* Structured data (JSON-LD) for product listings */}
      <script type="application/ld+json">
-      {`
-        {
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "TuniMarket - ${getCategoryName() === 'Home' ? 'Marketplace Products' : getCategoryName()}",  // Dynamic name based on category
-          "description": "${getCategoryDescription()}",
-          "brand": "TuniMarket",
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "${currentUrl}"
-          },
-          "url": "${currentUrl}",
-          "logo": "https://tunimarket.vercel.app/Sample.jpg",
-          "hasMerchantReturnPolicy": {
-            "@type": "MerchantReturnPolicy",
-            "url": "https://tunimarket.vercel.app/returns"
-          }
-        }
-      `}
-    </script>
+{`
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "TuniMarket - ${getCategoryName()}",
+    "description": "${getCategoryDescription()}",
+    "url": "${currentUrl}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://tunimarket.vercel.app/Sample.jpg"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "${currentUrl}"
+    }
+  }
+`}
+</script>
 
 
         {/* Preload images */}
