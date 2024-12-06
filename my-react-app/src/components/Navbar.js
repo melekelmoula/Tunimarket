@@ -50,14 +50,14 @@ function Navbar({
           <ul className="navbar-nav">
             <li className="nav-item ms-3">
               <button className="nav-link" onClick={onHomeClick}
-                  aria-label="Go to Home Page" // Add this line for accessibility
-
-    >
+              aria-label="Go to Home Page" // Add this line for accessibility
+              >
+                
                 <FaHome /> 
               </button>
             </li>
 
-              {categories.map((cat) => (
+            {categories.map((cat) => (
   <li className="nav-item" key={cat.id}>
     <button
       className={`nav-link ${displayCategory === cat.name ? 'active' : ''}`}
@@ -70,6 +70,7 @@ function Navbar({
     </button>
   </li>
 ))}
+
 
             <li className="nav-item ms-auto">
               <button className="nav-link" onClick={onCartClick}>
@@ -92,7 +93,7 @@ function Navbar({
           alt="Logo" 
           className="logo" 
           />
-            
+
           <form className="d-flex ms-auto">
             <input
               type="text"
@@ -105,7 +106,7 @@ function Navbar({
           <br></br>
           <br></br>
           <br></br>
-
+    
           <span>
   <label htmlFor="language-select" className="sr-only">Lang</label>
   <select
@@ -115,10 +116,11 @@ function Navbar({
     className="form-select"
     aria-label="Language" // Accessible label for screen readers
   >
-    <option value="en">English</option>
-    <option value="fr">Francais</option>
+    <option value="en">English </option>
+    <option value="fr">Francais </option>
   </select>
 </span>
+
 
         </div>
       </div>
