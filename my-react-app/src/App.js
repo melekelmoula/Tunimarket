@@ -13,6 +13,7 @@ import { useCart } from './contexts/CartContext';
 import { useLanguage, translate } from './contexts/LanguageContext'; // Import useLanguage and translate
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
 import { useLocation } from 'react-router-dom';
+import { jsPDF } from "jspdf"; // Import jsPDF
 
 function App() {
   const [formData, setFormData] = useState({ name: '', price: 0, image: null, location: '', stock: 1, category: '', username: '', email: '' ,description:"",phoneNumber:""});
@@ -48,21 +49,21 @@ function App() {
     const fetchData = async () => {
       try {
         // Fetch categories and products
-        const { data: categoriesData } = await axios.get('https://tuni-market.vercel.app/api/categories');
-        const { data: productsData } = await axios.get('https://tuni-market.vercel.app/api/products');
+        const { data: categoriesData } = await axios.get('http://localhost:5000/api/categories');
+        const { data: productsData } = await axios.get('http://localhost:5000/api/products');
         setProducts(productsData);
         setllProducts(productsData);
         setCategories(categoriesData);
   
         // Fetch the sitemap.xml to check the lastmod date of the first URL
-        const response = await axios.get('https://tunimarket.vercel.app/sitemap.xml');
+        const response = await axios.get('http://localhost:3000/sitemap.xml');
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(response.data, "application/xml");
         const lastmod = xmlDoc.getElementsByTagName("lastmod")[0]?.textContent;
 
         if (!lastmod) {
           // If no lastmod is found, generate a new sitemap
-          await axios.post('https://tuni-market.vercel.app/api/generate-sitemap', {
+          await axios.post('http://localhost:5000/api/generate-sitemap', {
             products: productsData,
             categories: categoriesData,
           });
@@ -93,7 +94,7 @@ function App() {
           // Compare the month and year of lastmod with the current date
           if (diffDays>12) {
             // If they are different, generate a new sitemap
-            await axios.post('https://tuni-market.vercel.app/api/generate-sitemap', {
+            await axios.post('http://localhost:5000/api/generate-sitemap', {
               products: productsData,
               categories: categoriesData,
             });
@@ -143,7 +144,7 @@ function App() {
       } else {
         // If not found in the current list, fetch it from the server
         axios
-          .get(`https://tuni-market.vercel.app/api/products/${productId}`)
+          .get(`http://localhost:5000/api/products/${productId}`)
           .then((response) => setSelectedProduct(response.data))
           .catch((error) => console.error('Error fetching product:', error));
       }
@@ -204,10 +205,10 @@ useEffect(() => {
     Object.entries(formData).forEach(([key, val]) => data.append(key, val));
 
     try {
-      await axios.post('https://tuni-market.vercel.app/api/products', data, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await axios.post('http://localhost:5000/api/products', data, { headers: { 'Content-Type': 'multipart/form-data' } });
       setFormData({ name: '', price: 0, image: null, location: '', stock: 1, category: '', username: '', email: '' ,description:"",phoneNumber:""});
       setShowForm(false);
-      const { data: updatedProducts } = await axios.get('https://tuni-market.vercel.app/api/products');
+      const { data: updatedProducts } = await axios.get('http://localhost:5000/api/products');
       setProducts(updatedProducts);
     } catch (error) {
       alert(`Error adding product: ${error.response?.data?.message || error.message}`);
@@ -249,8 +250,63 @@ useEffect(() => {
     };
 
     try {
-      await axios.post('https://tuni-market.vercel.app/api/orders', orderDetails);
-      setShowCart(false);
+      await axios.post('http://localhost:5000/api/orders', orderDetails);
+      setShowCart(false);      
+      const doc = new jsPDF();
+
+      // Add logo in the center with increased width
+      const logoUrl = 'http://localhost:3000/Badge.png';
+      doc.addImage(logoUrl, 'PNG', 85, 10, 50, 40); // Increased width from 40 to 50 (you can adjust this further)
+      
+      // Add title "Order Invoice" at the top-left with a smaller font size
+      doc.setFontSize(16); // Reduced font size
+      doc.setFont('helvetica', 'bold');
+      doc.text('Order Invoice', 20, 25); // Adjust the x, y for top-left position
+      
+      // Add date on top-right corner
+      const currentDate = new Date().toLocaleDateString(); // Format the date as needed
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Date: ${currentDate}`, 190, 20, null, null, 'right');
+      
+      // Order details (centered with a bit more space)
+      doc.setFontSize(12); // Smaller font size for the body content
+      doc.text(`Username: ${orderDetails.username}`, 105, 70, null, null, 'center');
+      doc.text(`Order Date: ${orderDetails.orderDate}`, 105, 80, null, null, 'center');
+      doc.text(`Total Amount: ${orderDetails.totalAmount}DT`, 105, 90, null, null, 'center');
+      doc.text(`Payment Option: ${orderDetails.paymentOption}`, 105, 100, null, null, 'center');
+      doc.text(`Address: ${orderDetails.address}`, 105, 110, null, null, 'center');
+      
+      // Separator line
+      doc.setLineWidth(0.5);
+      doc.line(20, 115, 190, 115); // Horizontal line from left to right
+      
+      // Order items (centered with smaller font size)
+      doc.text('Order Items:', 105, 125, null, null, 'center');
+      orderDetails.cartItems.forEach((item, index) => {
+        const yOffset = 135 + (index * 10);
+        doc.text(`${item.name} (x${item.quantity}) - ${item.total}DT`, 105, yOffset, null, null, 'center');
+      });
+      
+      // Add signature image just after the order items
+      const signatureUrl = 'http://localhost:3000/Signature.png';
+      const signatureYPosition = 135 + (orderDetails.cartItems.length * 10) + 10; // Adjust y position based on the number of items
+      doc.addImage(signatureUrl, 'PNG', 85, signatureYPosition, 40, 40); // Adjust x, y, width, height for the signature
+      
+      // Convert PDF to base64 and send it to the server
+      const pdfData = doc.output('datauristring'); // This returns the PDF as a base64 string
+      
+      const userEmail = window.localStorage.getItem('email');
+      const subject = "Order Successfully Passed"; 
+      const message = " ";
+      alert ("Order placed successfully. Check your email for the invoice.")   
+      await axios.post('http://localhost:5000/api/send-order-email', {
+                          email: userEmail,
+                          subject: subject,
+                          message: message,
+                          attachment: pdfData,  // Send the PDF data
+
+      });            
       setCartItems([]); // This will reset the cart to an empty array
       navigate(`/`); 
       window.location.reload();
@@ -351,7 +407,7 @@ useEffect(() => {
         const lastCartLists = cartlastproduct.map(item => item.productId);
   
         // Fetch all products from the API
-        const { data: allProducts } = await axios.get('https://tuni-market.vercel.app/api/products');
+        const { data: allProducts } = await axios.get('http://localhost:5000/api/products');
   
         // Create a map of product IDs for faster lookup
         const allProductsMap = new Map(allProducts.map(product => [product.id, product]));
@@ -409,7 +465,7 @@ useEffect(() => {
     navigate(`/`); 
 
     try {
-      const { data: favoriteProducts } = await axios.get(`https://tuni-market.vercel.app/api/getfavorites?email=${userEmail}`);
+      const { data: favoriteProducts } = await axios.get(`http://localhost:5000/api/getfavorites?email=${userEmail}`);
       const favoriteIds = favoriteProducts.map(product => product.id);
       const updatedFavProducts = products.filter(product => favoriteIds.includes(product.id));
       setFavProducts(updatedFavProducts);
@@ -494,7 +550,7 @@ useEffect(() => {
   <iframe
     src="https://app.powerbi.com/view?r=eyJrIjoiMTg2NjIxYTYtNGNlMi00OTYxLWJmNDgtNWEwNTlhZmU1Y2Q4IiwidCI6ImRiZDY2NjRkLTRlYjktNDZlYi05OWQ4LTVjNDNiYTE1M2M2MSIsImMiOjl9"
     width="100%" 
-  height="1000px" 
+    height="600px" 
     frameBorder="0" 
     allowFullScreen="true" 
     title="PowerBI Dashboard"
