@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { useCart } from '../contexts/CartContext';
 import axios from 'axios';
 import { useLanguage, translate } from '../contexts/LanguageContext';
+import './ProductDetail.css';
 
 const ProductDetail = () => {
   const { productId } = useParams(); // Retrieve product ID from the URL
@@ -136,7 +137,7 @@ const ProductDetail = () => {
           "location": "${product.location}",
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://tunimarket.vercel.app/product/${product.id}"
+            "@id": "/product/${product.id}"
           }
         }
       `}
@@ -152,33 +153,62 @@ const ProductDetail = () => {
 
           {/* Product Details Section */}
           <section className="col-md-6">
-            <h1>{product.name}</h1>
-            <p><strong>{translate('price', language)}:</strong> {product.price} DT</p>
-            <p><strong>{translate('category', language)}:</strong> {translate(product.category, language)}</p>
-            <p><strong>{translate('location', language)}:</strong> {product.location}</p>
-            <p><strong>{translate('stock', language)}:</strong> {product.stock}</p>
-            <p><strong>{translate('addedBy', language)}:</strong> {product.username}</p>
-            <p><strong>{translate('productId', language)}:</strong> {product.id}</p>
+          <h1 style={{ color: '#649ef5' }}>{product.name}</h1>
 
-            {/* Action Buttons */}
-            <div className="button-group">
-              {isInCart ? (
-                <button className="btn btn-warning mt-3 me-2" onClick={handleRemoveFromCart}>
-                  {translate('removeFromCart', language)}
-                </button>
-              ) : (
-                <button className="btn btn-primary mt-3 me-2" onClick={handleAddToCart}>
-                  {translate('addToCart', language)}
-                </button>
-              )}
-              <button
-                className={`btn mt-3 ${isFavorite ? 'btn-danger' : 'btn-outline-danger'}`}
-                onClick={handleToggleFavorite}
-              >
-                {isFavorite ? translate('removeFromFavorites', language) : translate('addToFavorites', language)}
-              </button>
-            </div>
-          </section>
+      <p>{product.description}</p>
+      <br></br>
+      <div className="product-info">
+    <div className="product-info-item">
+      <strong>{translate('price', language)}:</strong>
+      <p>{product.price} DT</p>
+    </div>
+    <div className="product-info-item">
+      <strong>{translate('category', language)}:</strong>
+      <p>{translate(product.category, language)}</p>
+    </div>
+  </div>
+
+  <div className="product-info">
+    <div className="product-info-item">
+      <strong>{translate('location', language)}:</strong>
+      <p>{product.location}</p>
+    </div>
+    <div className="product-info-item">
+      <strong>{translate('stock', language)}:</strong>
+      <p>{product.stock}</p>
+    </div>
+    <div className="product-info-item">
+      <strong>{translate('phoneNumber', language)}:</strong>
+      <p>{product.phoneNumber}</p>
+    </div>
+    <div className="product-info-item">
+      <strong>{translate('addedBy', language)}:</strong>
+      <p>{product.username}</p>
+    </div>
+  </div>
+
+ 
+  <strong>{translate('productId', language)}:</strong>
+      <p>{product.id}</p>
+  <div className="button-group">
+    {isInCart ? (
+      <button className="btn btn-warning mt-3 me-2" onClick={handleRemoveFromCart}>
+        {translate('removeFromCart', language)}
+      </button>
+    ) : (
+      <button className="btn btn-primary mt-3 me-2" onClick={handleAddToCart}>
+        {translate('addToCart', language)}
+      </button>
+    )}
+    <button
+      className={`btn mt-3 ${isFavorite ? 'btn-danger' : 'btn-outline-danger'}`}
+      onClick={handleToggleFavorite}
+    >
+      {isFavorite ? translate('removeFromFavorites', language) : translate('addToFavorites', language)}
+    </button>
+  </div>
+</section>
+
         </div>
       </div>
     </article>
