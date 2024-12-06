@@ -24,6 +24,24 @@ const AddProductForm = ({ formData, handleChange, handleSubmit, categories }) =>
           />
         </div>
 
+        {/* Product Description Input */}
+<div className="form-group mt-3">
+  <textarea
+    className="form-control"
+    placeholder={translate('productDescription', language)} // Translated placeholder text
+    name="description"
+    value={formData.description}
+    onChange={handleChange}
+    rows="2" // Specifies the height of the textarea
+    required
+    style={{
+      resize: 'vertical', // Allow vertical resizing only
+      fontSize: '16px',
+      padding: '10px',
+    }}
+  />
+</div>
+
         {/* Product Price Input */}
         <div className="form-group mt-3">
           <input
@@ -74,6 +92,22 @@ const AddProductForm = ({ formData, handleChange, handleSubmit, categories }) =>
             }}
           />
         </div>
+
+        {/* Phone Number Input */}
+<div className="form-group mt-3">
+  <input
+    type="tel"
+    className="form-control"
+    placeholder={translate('enterPhoneNumber', language)} // Translated placeholder text
+    name="phoneNumber"
+    value={formData.phoneNumber}
+    onChange={handleChange}
+    pattern="[0-9]{8}" // Regex to enforce exactly 8 digits
+    maxLength="8" // Restrict input to 8 characters
+    required
+  />
+</div>
+
 
         {/* Product Image Input */}
         <div className="form-group mt-3">
