@@ -22,13 +22,14 @@ const uploadImage = async (image) => {
     blobStream.end(image.buffer);
   });
 };
+// my-node-backend/models/productModel.js
 
 // Add a new product to Firestore
 const addProduct = async (product) => {
-  const { name, price, location, stock = 1, category, imageUrl, username } = product;
+  const { name, price, location, stock = 1, category, imageUrl, username ,phoneNumber,description} = product;
   try {
     const productRef = await db.collection('products').add({
-      name, price: parseFloat(price), location, stock: parseInt(stock), category, imageUrl, username
+      name, price: parseFloat(price), location, stock: parseInt(stock), category, imageUrl, username,phoneNumber,description
     });
     return { message: 'Product added successfully!', imageUrl, id: productRef.id };
   } catch (error) {
