@@ -138,8 +138,8 @@ function Cart({ Carthide, handleSubmitOrder }) {
                       onChange={(e) => handleQuantityChange(product.id, Number(e.target.value))}
                     />
                   </td>
-                  <td>${product.price}</td>
-                  <td>${(product.price * quantity).toFixed(2)}</td>
+                  <td>DT{product.price}</td>
+                  <td>DT{(product.price * quantity).toFixed(2)}</td>
                   <td>
                     <button className="btn" onClick={() => removeFromCart(product.id)}>
                       <FaTimes />
@@ -150,7 +150,7 @@ function Cart({ Carthide, handleSubmitOrder }) {
             </tbody>
           </table>
         )}
-        <h4>Total: ${getTotalPrice().toFixed(2)}</h4>
+        <h4>Total: DT{getTotalPrice().toFixed(2)}</h4>
 
         <div className="address-field">
           <h5>Delivery Address:</h5>
