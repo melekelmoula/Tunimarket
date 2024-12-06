@@ -91,27 +91,29 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
         <meta property="og:url" content={currentUrl}/>
         <meta property="og:type" content="website"/>
         <link rel="canonical" href={currentUrl} />
+        <meta property="og:image" content="https://tunimarket.vercel.app/Sample.jpg" />
 
      {/* Structured data (JSON-LD) for product listings */}
      <script type="application/ld+json">
-{`
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "TuniMarket - ${getCategoryName()}",
-    "description": "${getCategoryDescription()}",
-    "url": "${currentUrl}",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://tunimarket.vercel.app/Sample.jpg"
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "${currentUrl}"
-    }
-  }
-`}
-</script>
+      {`
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "TuniMarket - ${getCategoryName() === 'Home' ? 'Marketplace Products' : getCategoryName()}",  // Dynamic name based on category
+          "description": "${getCategoryDescription()}",
+          "brand": "TuniMarket",
+          "url": "${currentUrl}",
+          "logo": "/Sample.jpg",
+          "image": "/Sample.jpg",
+
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "${currentUrl}"
+          },
+
+        }
+      `}
+    </script>
 
 
         {/* Preload images */}
