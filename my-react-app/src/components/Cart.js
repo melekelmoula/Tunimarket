@@ -66,7 +66,7 @@ function Cart({ Carthide, handleSubmitOrder }) {
         const subject = "Your Order Code"; // You can customize this or make it dynamic based on the order or user details
         const message = `Thank you for your order! Your order code is: ${code}`; // Create the message text
 
-        const response = await axios.post('http://localhost:5000/api/send-order-email', { // Correct API route
+        const response = await axios.post('https://tuni-market.vercel.app/api/send-order-email', { // Correct API route
           email: userEmail,
           subject: subject, // Send the subject
           message: message, // Send the message
