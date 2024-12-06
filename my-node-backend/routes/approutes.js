@@ -3,7 +3,7 @@ const { registerUser, loginWithGoogle, handleLogin } = require('../controllers/a
 const { createProduct, fetchProducts, fetchProductById } = require('../controllers/productController');
 const { fetchCategories } = require('../controllers/categoryController');
 const { submitOrder } = require('../controllers/orderController');
-const { sendOrderCodeEmail } = require('../controllers/emailController');
+const { sendOrderEmail } = require('../controllers/emailController');
 const { toggleFavorite, getFavorites } = require('../controllers/favoriteController');
 const { addToCart, getCart, removeFromCart, updateCartQuantity } = require('../controllers/cartController');
 const { decodeToken } = require('../middleware/index');
@@ -23,7 +23,7 @@ router.get('/api/categories', fetchCategories);      // Fetch product categories
 // Protected Routes - Require decodeToken middleware
 router.post('/api/products', decodeToken, createProduct); 
 router.post('/api/orders', decodeToken, submitOrder);      
-router.post('/api/send-order-code', decodeToken, sendOrderCodeEmail);
+router.post('/api/send-order-email', decodeToken, sendOrderEmail);
 router.post('/api/favorites', decodeToken, toggleFavorite);
 router.get('/api/getfavorites', decodeToken, getFavorites);
 
@@ -31,6 +31,12 @@ router.post('/api/cart', decodeToken, addToCart);
 router.delete('/api/cart', decodeToken, removeFromCart); 
 router.put('/api/cart', decodeToken, updateCartQuantity);
 router.get('/api/cart', decodeToken, getCart);       
+
+// Health Check Route
+router.get('/', (req, res) => {
+  res.send('Hey! Your server is up and running 🚀');
+});
+
 router.post('/api/generate-sitemap', (req, res) => {
   const { products, categories } = req.body;
   
@@ -45,10 +51,6 @@ router.post('/api/generate-sitemap', (req, res) => {
     console.error('Error generating sitemap:', error);
     res.status(500).json({ message: 'Error generating sitemap' });
   }
-});
-// Health Check Route
-router.get('/', (req, res) => {
-  res.send('Hey! Your server is up and running 🚀');
 });
 
 module.exports = router;
