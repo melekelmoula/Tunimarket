@@ -38,6 +38,10 @@ const translations = {
     enterLocation: "Enter location",
     enterStock: "Enter stock",
     selectCategory: "Select Category",
+    productDescription: "Enter Description",
+    enterPhoneNumber:"Enter Phone Number",
+    phoneNumber:"Phone Number",
+    description:"Description",
   },
   fr: {
     searchPlaceholder: "Rechercher des produits",
@@ -77,6 +81,10 @@ const translations = {
     enterLocation: "Entrez l'emplacement",
     enterStock: "Entrez le stock",
     selectCategory: "Sélectionner une catégorie",
+    productDescription: "Entrer une description ",
+    enterPhoneNumber:"Entrer le numero de téléphone",
+    phoneNumber:"Téléphone",
+    description:"Description",
   },
 };
 
