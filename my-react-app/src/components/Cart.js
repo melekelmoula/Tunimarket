@@ -63,9 +63,13 @@ function Cart({ Carthide, handleSubmitOrder }) {
       // Send the code and user's email to the backend to send the email
       try {
         const userEmail = window.localStorage.getItem('email'); // Assuming email is stored in localStorage
-        const response = await axios.post('https://tuni-market.vercel.app/api/send-order-code', { // Correct API route
+        const subject = "Your Order Code"; // You can customize this or make it dynamic based on the order or user details
+        const message = `Thank you for your order! Your order code is: ${code}`; // Create the message text
+
+        const response = await axios.post('http://localhost:5000/api/send-order-email', { // Correct API route
           email: userEmail,
-          code: code,
+          subject: subject, // Send the subject
+          message: message, // Send the message
         });
         setEmailSentMessage('The order code has been sent to your email.'); // Update the message state
 
@@ -138,8 +142,8 @@ function Cart({ Carthide, handleSubmitOrder }) {
                       onChange={(e) => handleQuantityChange(product.id, Number(e.target.value))}
                     />
                   </td>
-                  <td>{product.price}DT</td>
-                  <td>{(product.price * quantity).toFixed(2)}DT</td>
+                  <td>${product.price}</td>
+                  <td>${(product.price * quantity).toFixed(2)}</td>
                   <td>
                     <button className="btn" onClick={() => removeFromCart(product.id)}>
                       <FaTimes />
@@ -150,7 +154,7 @@ function Cart({ Carthide, handleSubmitOrder }) {
             </tbody>
           </table>
         )}
-        <h4>Total: {getTotalPrice().toFixed(2)}DT</h4>
+        <h4>Total: ${getTotalPrice().toFixed(2)}</h4>
 
         <div className="address-field">
           <h5>Delivery Address:</h5>
