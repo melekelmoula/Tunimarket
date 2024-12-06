@@ -11,11 +11,11 @@ import LoginForm from './components/Login';
 import ProductDetail from './components/ProductDetail';
 import { useCart } from './contexts/CartContext'; 
 import { useLanguage, translate } from './contexts/LanguageContext'; // Import useLanguage and translate
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-do
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
 import { useLocation } from 'react-router-dom';
-//
+
 function App() {
-  const [formData, setFormData] = useState({ name: '', price: 0, image: null, location: '', stock: 1, category: '', username: '', email: '' });
+  const [formData, setFormData] = useState({ name: '', price: 0, image: null, location: '', stock: 1, category: '', username: '', email: '' ,description:"",phoneNumber:""});
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -44,7 +44,7 @@ function App() {
 
   const [allproducts, setllProducts] = useState([]);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch categories and products
@@ -54,7 +54,7 @@ function App() {
         setllProducts(productsData);
         setCategories(categoriesData);
   
-        // Fetch the sitemap.xml to check the lastmod date of the first URl
+        // Fetch the sitemap.xml to check the lastmod date of the first URL
         const response = await axios.get('https://tunimarket.vercel.app/sitemap.xml');
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(response.data, "application/xml");
@@ -112,6 +112,7 @@ function App() {
       fetchData();
     }
   }, [isAdmin]);
+  
 
   useEffect(() => {
     const storedUsername = window.localStorage.getItem('username');
@@ -126,6 +127,8 @@ function App() {
       onLoginSuccess(); // Optionnel : récupérer le panier ou d'autres données utilisateur
     }
   }, []);
+
+
 
   useEffect(() => {
     // Check if the URL contains '/product/' and extract the product ID
@@ -146,12 +149,16 @@ function App() {
       }
     }
   }, [location.pathname, products]);
+  
 
-  // Listen to changes in URL
+// Listen to changes in URL
 useEffect(() => {
   const match = location.pathname.match(/\/category\/([^/]+)/);
   if (match && match[1]) {
     const categoryName = match[1];
+    setFavProducts([]);  // No products to display
+    setSelectedProduct(null);
+    setShowProductFeed(true)
     setSelectedCategory(categoryName);
     setDisplayCategory(categoryName);
   } else {
@@ -161,8 +168,6 @@ useEffect(() => {
 }, [location.pathname]);
 
   
-  
-  //my-react-app\src\App.js
   const handleSearch = (query) => {
     if (query === '') {
       setProducts(allproducts);
@@ -175,6 +180,7 @@ useEffect(() => {
       setProducts(filtered);
     }
   };
+
 
   const handleShowLoginDialog = (query) => {
     if (!email && query.trim() !== '') {
@@ -199,7 +205,7 @@ useEffect(() => {
 
     try {
       await axios.post('https://tuni-market.vercel.app/api/products', data, { headers: { 'Content-Type': 'multipart/form-data' } });
-      setFormData({ name: '', price: 0, image: null, location: '', stock: 1, category: '', username: '', email: '' });
+      setFormData({ name: '', price: 0, image: null, location: '', stock: 1, category: '', username: '', email: '' ,description:"",phoneNumber:""});
       setShowForm(false);
       const { data: updatedProducts } = await axios.get('https://tuni-market.vercel.app/api/products');
       setProducts(updatedProducts);
@@ -288,8 +294,13 @@ useEffect(() => {
   };
 
   const toggleCart = () => {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
     setShowCart(!showCart);
   };
+  
 
   const handleHomeClick = () => {
     setDisplayCategory(null)
@@ -299,8 +310,8 @@ useEffect(() => {
     setShowCart(false);
     setShowForm(false);
     setShowLoginForm(false);
+    document.title = "Achetez et Vendez en Ligne en Tunisie | Marketplace TuniMarket"; // Set the title dynamically
     navigate(`/`); 
-
   };
 
   const Carthide = () => {
@@ -399,17 +410,13 @@ useEffect(() => {
 
     try {
       const { data: favoriteProducts } = await axios.get(`https://tuni-market.vercel.app/api/getfavorites?email=${userEmail}`);
+      const favoriteIds = favoriteProducts.map(product => product.id);
+      const updatedFavProducts = products.filter(product => favoriteIds.includes(product.id));
+      setFavProducts(updatedFavProducts);
       
-      if (favoriteProducts.length === 0) {
-        // Handle empty favorites case
-        setFavProducts([]);  // No products to display
-        setSelectedProduct(null);
-        setShowProductFeed(false);  // Optionally hide the product feed if empty
+      if (updatedFavProducts.length===0||!updatedFavProducts) {
+        alert("Favorite list is empty");
       } else {
-        const favoriteIds = favoriteProducts.map(product => product.id);
-        const updatedFavProducts = products.filter(product => favoriteIds.includes(product.id));
-  
-        setFavProducts(updatedFavProducts);
         setSelectedProduct(null);
         setShowProductFeed(true); // Show product feed with the updated favorites
       }
@@ -420,9 +427,9 @@ useEffect(() => {
   };
   
   return (
-    
     <div className="container mt-5">
-         
+       
+     
 
 {!isAdmin && (
       <Navbar 
@@ -436,18 +443,22 @@ useEffect(() => {
         onShowLoginDialog={handleShowLoginDialog} // Pass down handler for login dialog
 
       />
+      
     )}
+
 {username && (
   <h6 className="text-end">
   {translate('welcome', language)}, {isAdmin ? `admin ${username}` : username}!
         </h6>
       )}
 
+      
 <div className="d-flex mt-1">
       {/* Conditionally render the Add Product button for non-admin users */}
       {!isAdmin && (
         <button className="btn btn-primary" onClick={handleAddProductClick}
-              aria-label="Add Product" // Add this line for accessibility
+        aria-label="Add Product" // Add this line for accessibility
+
         >
           {showForm ? <span style={{ fontFamily: 'arial', fontSize: '16px'}}>__</span> : <><FaPlus /></>}
         </button>
@@ -455,7 +466,8 @@ useEffect(() => {
         <button
           className={`btn ms-3 ${isLoggedIn ? 'btn-danger' : 'btn-secondary'}`}
           onClick={isLoggedIn ? handleLogout : handleLoginClick}
-             aria-label={isLoggedIn ? "Logout" : "Login"}
+          aria-label={isLoggedIn ? "Logout" : "Login"}
+
         >
           {isLoggedIn ? <FaSignOutAlt /> : <FaSignInAlt />}
         </button>
@@ -471,9 +483,7 @@ useEffect(() => {
           filteredProducts={favProducts.length > 0 ? favProducts : handleFilterProducts()}  
           handleProductClick={handleProductClick} 
         />
-
       )
-
     )
     }
 
@@ -491,7 +501,9 @@ useEffect(() => {
   />
 )}
 
+
     </div>
+
   );
 }
 
