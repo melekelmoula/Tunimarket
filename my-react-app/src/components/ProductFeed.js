@@ -93,6 +93,7 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
         <link rel="canonical" href={currentUrl} />
         <meta property="og:image" content="https://tunimarket.vercel.app/Sample.jpg" />
 
+    
      {/* Structured data (JSON-LD) for product listings */}
      <script type="application/ld+json">
       {`
@@ -103,14 +104,12 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
           "description": "${getCategoryDescription()}",
           "brand": "TuniMarket",
           "url": "${currentUrl}",
-          "logo": "/Sample.jpg",
-          "image": "/Sample.jpg",
-
-          "mainEntityOfPage": {
+             "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "${currentUrl}"
           },
-
+          "logo": "/Sample.jpg",
+          "image": "/Sample.jpg"
         }
       `}
     </script>
