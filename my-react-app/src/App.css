@@ -1,26 +1,7 @@
 /* General Body Styles */
 
-
 body {
-  background-color: rgb(238, 243, 247) !important;
-}
-
-/* Header Styles */
-h1, h2 {
-  color: #333;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-h1 {
-  font-size: 2.5rem;
-  text-align: center;
-}
-
-h2 {
-  font-size: 1.75rem;
-  text-align: center;
+  background-color: rgb(255, 255, 255) !important;
 }
 
 /* Button Styles */
@@ -60,6 +41,13 @@ h2 {
   background-color: #5a6268;
 }
 
+/* Product Feed Container */
+.product-feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 2rem;
+}
 
 .card {
   border-radius: 12px;
@@ -75,10 +63,5 @@ h2 {
 .card-img-top {
   border-radius: 12px;
   max-height: 200px;
-  object-fit: cover;
 }
-
-
-
-
 
