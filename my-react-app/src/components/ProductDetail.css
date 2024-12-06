@@ -1,21 +1,52 @@
-.undo-btn {
-    padding: 0; /* Remove padding */
-    margin: 0; /* Remove margin */
-    background-color: transparent; /* Keep the background color */
-    border: none; /* Remove border */
-    width: 40px; /* Set width of the button to match the icon size */
-    height: 40px; /* Set height of the button to match the icon size */
-    display: inline-flex; /* Aligns icon within the button */
-    align-items: center; /* Centers icon vertically */
-    justify-content: center; /* Centers icon horizontally */
-  }
-  
-  .undo-btn .icon {
-    font-size: 20px; /* Adjust icon size */
-    color: black; /* Icon color */
-  }
-  .undo-btn:hover {
-    background-color: #f0f0f0; /* Change background color on hover */
-    transform: scale(1.1); /* Slightly enlarge the button on hover */
+/* Header Styles */
+h1, h2 {
+  color: #333;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+.product-detail-wrapper p {
+  color: rgb(51, 51, 51);
+  text-align: left;
+  
+}
+
+.product-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; /* Space between columns */
+}
+
+.product-info-item {
+  flex: 1 1 30%; /* Take 30% width for each item, but allow flexibility */
+  min-width: 200px; /* Set a minimum width */
+}
+
+
+.product-detail-wrapper figure {
+  display: flex; /* Use flexbox to center the image */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+
+}
+
+.product-detail-wrapper figure img {
+  border-radius: 10px; /* Rounded corners */
+  transition: transform 0.2s ease-in-out, box-shadow 0.8s ease; /* Smooth transition for hover effects */
+}
+
+.product-detail-wrapper figure img:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  
+}
