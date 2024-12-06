@@ -34,10 +34,12 @@ button.nav-link:hover {
 
 form.d-flex input.form-control {
   background-color: transparent !important;
-
   border-radius: 25px;
+  margin-top: 15px; /* Space it out from the search bar */
+
 }
 select.form-select {
+  margin-top: 15px; /* Space it out from the search bar */
   background-color: transparent !important;
   border: 2px solid #c7c5c700; /* Primary color for the border */
   border-radius: 25px;
