@@ -51,7 +51,7 @@ function Cart({ Carthide, handleSubmitOrder }) {
         .map(item => `Product ID: ${item.productId}, Quantity: ${item.quantity}`)
         .join('\n'); // Create a string of cart items
         
-        alert(`Cart items saved in localStorage:\n${cartItemsAlert}`);
+        //alert(`Cart items saved in localStorage:\n${cartItemsAlert}`);
       return; // Exit the function
     }
 
