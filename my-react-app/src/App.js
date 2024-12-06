@@ -49,21 +49,21 @@ function App() {
     const fetchData = async () => {
       try {
         // Fetch categories and products
-        const { data: categoriesData } = await axios.get('http://localhost:5000/api/categories');
-        const { data: productsData } = await axios.get('http://localhost:5000/api/products');
+        const { data: categoriesData } = await axios.get('https://tuni-market.vercel.app/api/categories');
+        const { data: productsData } = await axios.get('https://tuni-market.vercel.app/api/products');
         setProducts(productsData);
         setllProducts(productsData);
         setCategories(categoriesData);
   
         // Fetch the sitemap.xml to check the lastmod date of the first URL
-        const response = await axios.get('http://localhost:3000/sitemap.xml');
+        const response = await axios.get('https://tunimarket.vercel.app/sitemap.xml');
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(response.data, "application/xml");
         const lastmod = xmlDoc.getElementsByTagName("lastmod")[0]?.textContent;
 
         if (!lastmod) {
           // If no lastmod is found, generate a new sitemap
-          await axios.post('http://localhost:5000/api/generate-sitemap', {
+          await axios.post('https://tuni-market.vercel.app/api/generate-sitemap', {
             products: productsData,
             categories: categoriesData,
           });
@@ -94,7 +94,7 @@ function App() {
           // Compare the month and year of lastmod with the current date
           if (diffDays>12) {
             // If they are different, generate a new sitemap
-            await axios.post('http://localhost:5000/api/generate-sitemap', {
+            await axios.post('https://tuni-market.vercel.app/api/generate-sitemap', {
               products: productsData,
               categories: categoriesData,
             });
@@ -144,7 +144,7 @@ function App() {
       } else {
         // If not found in the current list, fetch it from the server
         axios
-          .get(`http://localhost:5000/api/products/${productId}`)
+          .get(`https://tuni-market.vercel.app/api/products/${productId}`)
           .then((response) => setSelectedProduct(response.data))
           .catch((error) => console.error('Error fetching product:', error));
       }
@@ -205,10 +205,10 @@ useEffect(() => {
     Object.entries(formData).forEach(([key, val]) => data.append(key, val));
 
     try {
-      await axios.post('http://localhost:5000/api/products', data, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await axios.post('https://tuni-market.vercel.app/api/products', data, { headers: { 'Content-Type': 'multipart/form-data' } });
       setFormData({ name: '', price: 0, image: null, location: '', stock: 1, category: '', username: '', email: '' ,description:"",phoneNumber:""});
       setShowForm(false);
-      const { data: updatedProducts } = await axios.get('http://localhost:5000/api/products');
+      const { data: updatedProducts } = await axios.get('https://tuni-market.vercel.app/api/products');
       setProducts(updatedProducts);
     } catch (error) {
       alert(`Error adding product: ${error.response?.data?.message || error.message}`);
@@ -250,12 +250,12 @@ useEffect(() => {
     };
 
     try {
-      await axios.post('http://localhost:5000/api/orders', orderDetails);
+      await axios.post('https://tuni-market.vercel.app/api/orders', orderDetails);
       setShowCart(false);      
       const doc = new jsPDF();
 
       // Add logo in the center with increased width
-      const logoUrl = 'http://localhost:3000/Badge.png';
+      const logoUrl = 'https://tunimarket.vercel.app/Badge.png';
       doc.addImage(logoUrl, 'PNG', 85, 10, 50, 40); // Increased width from 40 to 50 (you can adjust this further)
       
       // Add title "Order Invoice" at the top-left with a smaller font size
@@ -289,7 +289,7 @@ useEffect(() => {
       });
       
       // Add signature image just after the order items
-      const signatureUrl = 'http://localhost:3000/Signature.png';
+      const signatureUrl = 'https://tunimarket.vercel.app/Signature.png';
       const signatureYPosition = 135 + (orderDetails.cartItems.length * 10) + 10; // Adjust y position based on the number of items
       doc.addImage(signatureUrl, 'PNG', 85, signatureYPosition, 40, 40); // Adjust x, y, width, height for the signature
       
@@ -300,7 +300,7 @@ useEffect(() => {
       const subject = "Order Successfully Passed"; 
       const message = " ";
       alert ("Order placed successfully. Check your email for the invoice.")   
-      await axios.post('http://localhost:5000/api/send-order-email', {
+      await axios.post('https://tuni-market.vercel.app/api/send-order-email', {
                           email: userEmail,
                           subject: subject,
                           message: message,
@@ -407,7 +407,7 @@ useEffect(() => {
         const lastCartLists = cartlastproduct.map(item => item.productId);
   
         // Fetch all products from the API
-        const { data: allProducts } = await axios.get('http://localhost:5000/api/products');
+        const { data: allProducts } = await axios.get('https://tuni-market.vercel.app/api/products');
   
         // Create a map of product IDs for faster lookup
         const allProductsMap = new Map(allProducts.map(product => [product.id, product]));
@@ -465,7 +465,7 @@ useEffect(() => {
     navigate(`/`); 
 
     try {
-      const { data: favoriteProducts } = await axios.get(`http://localhost:5000/api/getfavorites?email=${userEmail}`);
+      const { data: favoriteProducts } = await axios.get(`https://tuni-market.vercel.app/api/getfavorites?email=${userEmail}`);
       const favoriteIds = favoriteProducts.map(product => product.id);
       const updatedFavProducts = products.filter(product => favoriteIds.includes(product.id));
       setFavProducts(updatedFavProducts);
