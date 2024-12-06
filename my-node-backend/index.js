@@ -23,7 +23,7 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '1mb' })); // Set your preferred size limit
 app.use(routes);
 
 app.listen(PORT, () => {
