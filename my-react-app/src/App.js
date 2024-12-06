@@ -494,7 +494,7 @@ useEffect(() => {
   <iframe
     src="https://app.powerbi.com/view?r=eyJrIjoiMTg2NjIxYTYtNGNlMi00OTYxLWJmNDgtNWEwNTlhZmU1Y2Q4IiwidCI6ImRiZDY2NjRkLTRlYjktNDZlYi05OWQ4LTVjNDNiYTE1M2M2MSIsImMiOjl9"
     width="100%" 
-    height="600px" 
+  height="1000px" 
     frameBorder="0" 
     allowFullScreen="true" 
     title="PowerBI Dashboard"
