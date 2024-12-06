@@ -8,8 +8,7 @@ const upload = multer({ storage }).single('image');
 const createProduct = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) return res.status(400).send({ message: 'Error uploading image.' });
-
-    const { name, price, location, stock = 1, category, username } = req.body;
+    const { name, price, location, stock = 1, category, username ,phoneNumber,description} = req.body;
     const image = req.file;
 
     if (!image) return res.status(400).send({ message: 'Image file is required.' });
@@ -18,7 +17,7 @@ const createProduct = async (req, res) => {
       // Upload the image and get the image URL
       const imageUrl = await uploadImage(image);
       // Add product to Firestore and send response
-      const response = await addProduct({ name, price, location, stock, category, imageUrl, username });
+      const response = await addProduct({ name, price, location, stock, category, imageUrl, username,phoneNumber,description });
       res.status(201).send(response);
     } catch (error) {
       console.error('Error:', error);
