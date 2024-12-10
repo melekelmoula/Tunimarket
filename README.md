@@ -1,4 +1,4 @@
-Whether you're buying or selling in Tunisia, hashtag#TuniMarket simplifies the process for you. Designed and developed to prioritize user experience, with features like: 
+Whether you're buying or selling in Tunisia, TuniMarket simplifies the process for you. Designed and developed to prioritize user experience, with features like: 
 
 🔐 Google Sign-In: One-click for login/registration.
 
