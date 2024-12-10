@@ -2,7 +2,9 @@ Whether you're buying or selling in Tunisia, hashtag#TuniMarket simplifies the p
 
 
 🔐 Google Sign-In: One-click for login/registration.
+
 🛒 Shopping Cart: Add, remove, or adjust quantities.
+
 🔄 Automatic Cart Recovery: cart items restored on login.
 ❤️ Favorites: Mark and filter items, restored on login.
 🔍 Search & Filters: Find item by category or keyword.
