@@ -64,7 +64,7 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
       return categories[category.toLowerCase()];  // Matches categories like 'Clothes', 'Autoparts', 'Technology'
     }
   
-    return 'Discover the best deals for buying and selling on TuniMarket, the online marketplace of Tunisia.'; // Default description for homepage or invalid category
+  return 'Explore the best deals on TuniMarket, Tunisia\'s leading online marketplace, featuring a wide range of brand-new and second-hand items, offering excellent value for both buyers and sellers.';
   };
 
   const getCategoryKeywords = () => {
@@ -96,23 +96,22 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
     
      {/* Structured data (JSON-LD) for product listings */}
      <script type="application/ld+json">
-      {`
-        {
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "TuniMarket - ${getCategoryName() === 'Home' ? 'Marketplace Products' : getCategoryName()}",  // Dynamic name based on category
-          "description": "${getCategoryDescription()}",
-          "brand": "TuniMarket",
-          "url": "${currentUrl}",
-             "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "${currentUrl}"
-          },
-          "logo": "/Sample.jpg",
-          "image": "/Sample.jpg"
-        }
-      `}
-    </script>
+    {`
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "TuniMarket - ${getCategoryName() === 'Home' ? 'Marketplace Products' : getCategoryName()}",
+        "description": "${getCategoryDescription()}",
+        "url": "${currentUrl}",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "${currentUrl}"
+        },
+        "logo": "https://tunimarket.vercel.app/Sample.jpg",
+        "image": "https://tunimarket.vercel.app/Sample.jpg"
+      }
+    `}
+  </script>
 
 
         {/* Preload images */}
