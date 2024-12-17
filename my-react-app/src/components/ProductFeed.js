@@ -107,7 +107,6 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
           "@type": "WebPage",
           "@id": "${currentUrl}"
         },
-        "logo": "https://tunimarket.vercel.app/Sample.jpg",
         "image": "https://tunimarket.vercel.app/Sample.jpg"
       }
     `}
