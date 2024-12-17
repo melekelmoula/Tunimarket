@@ -95,22 +95,24 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
 
     
      {/* Structured data (JSON-LD) for product listings */}
-     <script type="application/ld+json">
-    {`
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "TuniMarket - ${getCategoryName() === 'Home' ? 'Marketplace Products' : getCategoryName()}",
-        "description": "${getCategoryDescription()}",
-        "url": "${currentUrl}",
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "${currentUrl}"
-        },
-        "image": "https://tunimarket.vercel.app/Sample.jpg"
-      }
-    `}
-  </script>
+<script type="application/ld+json">
+  {`
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "TuniMarket - ${getCategoryName() === 'Home' ? 'Marketplace Products' : getCategoryName()}",
+      "description": "${getCategoryDescription()}",
+      "url": "${currentUrl}",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "${currentUrl}"
+      },
+      "image": "https://tunimarket.vercel.app/Sample.jpg"
+    }
+  `}
+</script>
+
+
 
 
         {/* Preload images */}
