@@ -92,25 +92,29 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
         <meta property="og:type" content="website"/>
         <link rel="canonical" href={currentUrl} />
         <meta property="og:image" content="https://tunimarket.vercel.app/Sample.jpg" />
+        <meta property="og:title" content={`TuniMarket - ${getCategoryName() === 'Home' ? 'Buy and Sell in Tunisia' : getCategoryName()}`} />
 
     
-     {/* Structured data (JSON-LD) for product listings */}
-<script type="application/ld+json">
-  {`
-    {
+    {/* Structured Data (JSON-LD) */}
+  <script type="application/ld+json">
+    {JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "TuniMarket - ${getCategoryName() === 'Home' ? 'Marketplace Products' : getCategoryName()}",
-      "description": "${getCategoryDescription()}",
-      "url": "${currentUrl}",
+      "name": `TuniMarket - ${getCategoryName() === 'Home' ? 'Marketplace Products' : getCategoryName()}`,
+      "description": getCategoryDescription(),
+      "url": currentUrl,
+      "publisher": {
+        "@type": "Organization",
+        "name": "TuniMarket",
+        "logo": "https://tunimarket.vercel.app/Sample.jpg",
+      },
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "${currentUrl}"
+        "@id": currentUrl,
       },
-      "image": "https://tunimarket.vercel.app/Sample.jpg"
-    }
-  `}
-</script>
+      "image": "https://tunimarket.vercel.app/Sample.jpg",
+    })}
+  </script>
 
 
 
