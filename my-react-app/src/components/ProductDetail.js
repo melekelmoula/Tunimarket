@@ -123,35 +123,33 @@ const ProductDetail = () => {
   <meta property="og:title" content={`TuniMarket - ${product.name}`} />
   <meta property="og:description" content={`Buy ${product.name} for just ${product.price} DT. Available in ${product.location}.`} />
   <meta property="og:site_name" content="TuniMarket" />
+{/* Structured Data for Product */}
+<script type="application/ld+json">
+  {JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.name,
+    "image": product.imageUrl,
+    "description": `Buy ${product.name} for just ${product.price} DT.`,
+    "sku": product.id,
+    "brand": "TuniMarket",
+    "offers": {
+      "@type": "Offer",
+      "url": `https://tunimarket.vercel.app/product/${product.id}`,
+      "priceCurrency": "DT",
+      "price": product.price,
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock"
+    },
+    "category": product.category,
+    "location": product.location,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `/product/${product.id}`
+    }
+  })}
+</script>
 
-  {/* Structured Data for Product */}
-  <script type="application/ld+json">
-    {`
-      {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": "${product.name}",
-        "image": "${product.imageUrl}",
-        "description": "Buy ${product.name} for just ${product.price} DT.",
-        "sku": "${product.id}",
-        "brand": "TuniMarket",
-        "offers": {
-          "@type": "Offer",
-          "url": "https://tunimarket.vercel.app/product/${product.id}",
-          "priceCurrency": "DT",
-          "price": "${product.price}",
-          "itemCondition": "https://schema.org/NewCondition",
-          "availability": "https://schema.org/InStock"
-        },
-        "category": "${product.category}",
-        "location": "${product.location}",
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "/product/${product.id}"
-        }
-      }
-    `}
-  </script>
 </Helmet>
 
 
