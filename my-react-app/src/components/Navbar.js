@@ -74,21 +74,6 @@ function Navbar({
 ))}
 
 
-  /*
-            {categories.map((cat) => (
-  <li className="nav-item" key={cat.id}>
-    <button
-      className={`nav-link ${displayCategory === cat.name ? 'active' : ''}`}
-      onClick={() => {
-        setDisplayCategory(displayCategory );
-        navigate(`/category/${cat.name}`);
-      }}
-    >
-      {translate(cat.name, language)}
-    </button>
-  </li>
-))}
-*/
 
             <li className="nav-item ms-auto">
               <button className="nav-link" onClick={onCartClick}>
