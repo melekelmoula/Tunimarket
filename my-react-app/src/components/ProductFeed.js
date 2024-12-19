@@ -88,11 +88,15 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
         <meta name="keywords" content={getCategoryKeywords()} />
         <title>{`TuniMarket - ${getCategoryName() === 'Home' ? 'Buy and Sell in Tunisia' : getCategoryName()}`}</title>
         <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={currentUrl} />
+        <meta name="author" content="TuniMarket" />
+
         <meta property="og:url" content={currentUrl}/>
         <meta property="og:type" content="website"/>
-        <link rel="canonical" href={currentUrl} />
         <meta property="og:image" content="https://tunimarket.vercel.app/Sample.jpg" />
         <meta property="og:title" content={`TuniMarket - ${getCategoryName() === 'Home' ? 'Buy and Sell in Tunisia' : getCategoryName()}`} />
+        <meta property="og:site_name" content="TuniMarket" />
+        <meta property="og:description" content={getCategoryDescription()} />
 
     
     {/* Structured Data (JSON-LD) */}
