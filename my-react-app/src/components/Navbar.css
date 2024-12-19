@@ -8,17 +8,20 @@
   font-size: 17px; /* Adjust the size to your preference */
 }
 
+
 /* Adjust the size of cart item count */
 .navbar .badge {
   font-size: 10px; /* Adjust to your preference */
 }
-
 
 /* Remove default button styles */
 .navbar .nav-link {
   background-color: transparent;
 }
 
+.nav-link {
+  margin-top: 6px; /* Adjust the value to move it lower */
+}
 
 button.nav-link:focus, 
 button.nav-link:hover {
@@ -27,16 +30,18 @@ button.nav-link:hover {
 
 .form-select {
   margin-left: 10px; /* Space it out from the search bar */
+
 }
 
 form.d-flex input.form-control {
   background-color: transparent !important;
   border-radius: 25px;
   margin-top: 15px; /* Space it out from the search bar */
+
 }
 
 select.form-select {
-  margin-top: 15px; /* Space it out from the search bar */
+
   background-color: transparent !important;
   border: 2px solid #c7c5c700; /* Primary color for the border */
   border-radius: 25px;
@@ -46,12 +51,15 @@ select.form-select {
   appearance: none; /* Removes default select arrow */
   cursor: pointer;
   transition: border-color 0.3s, box-shadow 0.3s;
+  margin-top: 15px; /* Space it out from the search bar */
 }
 
 select.form-select:focus {
   border-color: #74a7dd00;
   box-shadow: 0 0 5px rgba(66, 134, 224, 0);
 }
+
+
 .sr-only {
   border-radius: 25px;
   position: absolute;
@@ -60,6 +68,7 @@ select.form-select:focus {
   margin: -1px;
   overflow: hidden;
 }
+
 
 .logo {
   position: absolute; /* Fixes the logo in place */
