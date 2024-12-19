@@ -105,44 +105,55 @@ const ProductDetail = () => {
 
   return (
     <article className="product-detail-wrapper">
-      <Helmet>
-        <title>TuniMarket - {product.name}</title>
-        <meta name="description" content={`Buy ${product.name} for just ${product.price} DT.`} />
-        <meta name="keywords" content={`${product.name}, ${product.category}, buy ${product.name}, ${product.location}, TuniMarket`} />
-        <link rel="canonical" href={`https://tunimarket.vercel.app/product/${product.id}`} />
-        <link rel="preload" href={product.imageUrl} as="image" />
-        <meta property="og:url" content={`https://tunimarket.vercel.app/product/${product.id}`} />
-        <meta property="og:type" content="product" />
+     
+    <Helmet>
+  <title>{`TuniMarket - ${product.name}`}</title>
 
-     {/* Structured Data for Product */}
-    <script type="application/ld+json">
-      {`
-        {
-          "@context": "https://schema.org",
-          "@type": "Product",
-          "name": "${product.name}",
-          "image": "${product.imageUrl}",
-          "description": "Buy ${product.name} for just ${product.price} DT.",
-          "sku": "${product.id}",
-          "brand": "TuniMarket",
-          "offers": {
-            "@type": "Offer",
-            "url": "https://tunimarket.vercel.app/product/${product.id}",
-            "priceCurrency": "DT",
-            "price": "${product.price}",
-            "itemCondition": "https://schema.org/NewCondition",
-            "availability": "https://schema.org/InStock"
-          },
-          "category": "${product.category}",
-          "location": "${product.location}",
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "/product/${product.id}"
-          }
+  <meta name="description" content={`Buy ${product.name} for just ${product.price} DT. Available in ${product.location}.`} />
+  <meta name="keywords" content={`${product.name}, ${product.category}, buy ${product.name}, ${product.location}, TuniMarket`} />
+  <meta name="author" content="TuniMarket" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={`https://tunimarket.vercel.app/product/${product.id}`} />
+  <link rel="preload" href={product.imageUrl} as="image" />
+
+  <meta property="og:image" content={product.imageUrl || "https://tunimarket.vercel.app/default-image.jpg"} />
+  <meta property="og:image:alt" content={product.name} />
+  <meta property="og:url" content={`https://tunimarket.vercel.app/product/${product.id}`} />
+  <meta property="og:type" content="product" />
+  <meta property="og:title" content={`TuniMarket - ${product.name}`} />
+  <meta property="og:description" content={`Buy ${product.name} for just ${product.price} DT. Available in ${product.location}.`} />
+  <meta property="og:site_name" content="TuniMarket" />
+
+  {/* Structured Data for Product */}
+  <script type="application/ld+json">
+    {`
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "${product.name}",
+        "image": "${product.imageUrl}",
+        "description": "Buy ${product.name} for just ${product.price} DT.",
+        "sku": "${product.id}",
+        "brand": "TuniMarket",
+        "offers": {
+          "@type": "Offer",
+          "url": "https://tunimarket.vercel.app/product/${product.id}",
+          "priceCurrency": "DT",
+          "price": "${product.price}",
+          "itemCondition": "https://schema.org/NewCondition",
+          "availability": "https://schema.org/InStock"
+        },
+        "category": "${product.category}",
+        "location": "${product.location}",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "/product/${product.id}"
         }
-      `}
-    </script>
-  </Helmet>
+      }
+    `}
+  </script>
+</Helmet>
+
 
       <div className="container mt-3">
         <div className="row mt-4">
