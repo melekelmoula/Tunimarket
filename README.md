@@ -25,7 +25,7 @@ Whether you're buying or selling in Tunisia, TuniMarket simplifies the process f
 
 🌐 Technical: React SPA, Node, Express, Firebase, MVC.
 
-🛡️️️ Security: Token Auth with Axios & Middleware 
+🛡️️️ Security: Token Auth with cors & Middleware 
 
 🚀 Deployed on Vercel for fast and reliable hosting
 
