@@ -57,6 +57,24 @@ function Navbar({
               </button>
             </li>
 
+                {categories.map((cat) => (
+  <li className="nav-item" key={cat.id}>
+    <a
+      className={`nav-link ${displayCategory === cat.name ? 'active' : ''}`}
+      href={`/category/${cat.name}`} // Use href for navigation
+      onClick={(e) => {
+        e.preventDefault(); // Prevent default behavior of anchor tag
+        setDisplayCategory(cat.name); // Set the category to be displayed
+        navigate(`/category/${cat.name}`); // Use your navigate function if needed
+      }}
+    >
+      {translate(cat.name, language)}
+    </a>
+  </li>
+))}
+
+
+  /*
             {categories.map((cat) => (
   <li className="nav-item" key={cat.id}>
     <button
@@ -70,7 +88,7 @@ function Navbar({
     </button>
   </li>
 ))}
-
+*/
 
             <li className="nav-item ms-auto">
               <button className="nav-link" onClick={onCartClick}>
