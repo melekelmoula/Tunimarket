@@ -12,6 +12,10 @@
 .navbar .badge {
   font-size: 10px; /* Adjust to your preference */
 }
+.nav-link {
+  margin-top: 5px; /* Adjust the value to move it lower */
+}
+
 
 /* Remove default button styles */
 .navbar .nav-link {
