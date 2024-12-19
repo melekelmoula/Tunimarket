@@ -15,10 +15,11 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
   };
 
   const categoryKeywords = {
-    autoparts: 'TuniMarket, autoparts Tunisia, car accessories, buy auto parts, auto repair, online marketplace Tunisia',
-    clothes: 'TuniMarket, clothes Tunisia, fashion Tunisia, buy clothes, stylish clothes, online shopping Tunisia',
-    technology: 'TuniMarket, technology Tunisia, buy gadgets, electronics Tunisia, tech products, online shopping Tunisia'
-  };
+  autoparts: 'TuniMarket, auto parts Tunisia, car parts online, buy car accessories Tunisia, vehicle repair Tunisia, automotive marketplace Tunisia, car maintenance parts Tunisia',
+  clothes: 'TuniMarket, fashion Tunisia, trendy clothes Tunisia, online clothing store Tunisia, stylish apparel Tunisia, buy fashion clothing Tunisia, trendy fashion accessories Tunisia',
+  technology: 'TuniMarket, electronics Tunisia, buy tech gadgets Tunisia, technology products Tunisia, gadgets marketplace Tunisia, electronics shopping Tunisia, smart devices Tunisia'
+};
+
 
   useEffect(() => {
     setVisibleProducts(filteredProducts.slice(0, productsToShow));
@@ -64,7 +65,7 @@ function ProductFeed({ filteredProducts, handleProductClick }) {
       return categories[category.toLowerCase()];  // Matches categories like 'Clothes', 'Autoparts', 'Technology'
     }
   
-  return 'Explore the best deals on TuniMarket, Tunisia\'s leading online marketplace, featuring a wide range of brand-new and second-hand items, offering excellent value for both buyers and sellers.';
+  return 'Explore the best deals on TuniMarket, Tunisia\'s leading online marketplace, featuring a wide range of brand-new and second-hand items';
   };
 
   const getCategoryKeywords = () => {
