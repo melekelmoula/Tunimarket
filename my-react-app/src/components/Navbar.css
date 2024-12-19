@@ -12,8 +12,9 @@
 .navbar .badge {
   font-size: 10px; /* Adjust to your preference */
 }
+
 .nav-link {
-  padding-top: 6px; /* Adjust the value to move it lower */
+  transform: translateY(5px); /* Adjust the value to move it lower */
 }
 
 
